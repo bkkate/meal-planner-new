@@ -28,7 +28,7 @@ public class JdbcRecipeDao implements RecipeDao{
     public Recipe getRecipeById(int recipeId) {
         Recipe recipe = null;
 
-        String sql = "SELECT recipe_id, recipe_name, directions, tags, prep_time, food_pic, is_public " +
+        String sql = "SELECT recipe_id, recipe_name, directions, tags, prep_time, food_pic, is_public, is_favorite " +
                 "FROM recipes " +
                 "WHERE recipe_id = ?;";
         SqlRowSet row = jdbcTemplate.queryForRowSet(sql, recipeId);
@@ -42,7 +42,7 @@ public class JdbcRecipeDao implements RecipeDao{
     public List<Recipe> getAllRecipes(int userId) {
         List<Recipe> allRecipes = new ArrayList<>();
 
-        String sql = "SELECT recipes.recipe_id, recipe_name, directions, tags, prep_time, food_pic, is_public " +
+        String sql = "SELECT recipes.recipe_id, recipe_name, directions, tags, prep_time, food_pic, is_public, is_favorite " +
                 "FROM recipes " +
                 "JOIN users_recipes ON users_recipes.recipe_id = recipes.recipe_id " +
                 "WHERE user_id = ?;";
@@ -94,11 +94,11 @@ public class JdbcRecipeDao implements RecipeDao{
     public Recipe modifyRecipe(Recipe modifiedRecipe, int recipeId) {
         Recipe changedRecipe = null;
         String sql = "UPDATE recipes SET recipe_name=?, directions=?, tags=?, prep_time=?, "
-                + "food_pic=?, is_public=? WHERE recipe_id=?;";
+                + "food_pic=?, is_public=?, is_favorite=? WHERE recipe_id=?;";
 
         jdbcTemplate.update(sql, modifiedRecipe.getRecipeName(), modifiedRecipe.getDirections(),
                 modifiedRecipe.getTags(), modifiedRecipe.getPrepTime(), modifiedRecipe.getFoodPic(),
-                modifiedRecipe.isPublic(), recipeId);
+                modifiedRecipe.isPublic(), modifiedRecipe.isFavorite(), recipeId);
 
         changedRecipe = getRecipeById(recipeId);
 

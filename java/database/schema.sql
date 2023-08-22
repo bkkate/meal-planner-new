@@ -33,7 +33,8 @@ CREATE TABLE recipes(
 	prep_time int,
 	food_pic varchar(100),
 	is_public boolean,
-	created_by int, 
+	created_by int,
+	is_favorite boolean,
 	
 	CONSTRAINT PK_recipes PRIMARY KEY (recipe_id),
 	CONSTRAINT FK_recipes_created_by FOREIGN KEY (created_by) REFERENCES users(user_id)
