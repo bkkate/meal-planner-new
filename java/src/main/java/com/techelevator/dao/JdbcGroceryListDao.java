@@ -22,7 +22,7 @@ public class JdbcGroceryListDao implements GroceryListDao{
         String sql = "SELECT list_id, ingredient_name, non_food_option, quantity " +
                 "FROM grocery_list " +
                 "LEFT JOIN ingredients ON ingredients.ingredient_id = grocery_list.ingredient_id " +
-                "WHERE user_id = ?" +
+                "WHERE user_id = ? " +
                 "ORDER BY ingredient_name;";
 
         SqlRowSet row = jdbcTemplate.queryForRowSet(sql, userId);

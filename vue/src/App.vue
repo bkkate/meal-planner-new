@@ -28,17 +28,11 @@ export default {
 
 <style>
 
-
-#app {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-areas: "nav"
-                        "view"
-                        "footer";
-  /* position: relative; */
-  /* height: 100vh; */
-  gap: 10px;
+* {
+  margin: 0;
+  padding:0;
 }
+
 #content {
   padding-bottom: 2.5rem;
 }

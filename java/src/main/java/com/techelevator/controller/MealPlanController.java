@@ -12,10 +12,8 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("/mealplans")
 public class MealPlanController {
-
     @Autowired
     private MealPlanDao mealPlanDao;
-
 
     @RequestMapping(path="/list/{userId}",method= RequestMethod.GET)
     public List<List<MealPlan>> listAllMealPlans(@PathVariable int userId) {

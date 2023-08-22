@@ -1,55 +1,82 @@
 <template>
   <div>
     <form action="#" v-on:submit.prevent="" class="recipe-form">
-      <div class="name-prep">
-        <label for="recipe-name">Recipe Name: </label>
-        <input
-          type="text"
-          class="recipe-name"
-          id="recipe-name"
-          v-model="recipe.recipe_name"
-        />
-        <label for="prep-time" class="prep-time">Prep time: </label>
-        <input
-          type="number"
-          class="prep-time"
-          id="prep-time"
-          size="5"
-          v-model="recipe.prep_time"
-        />
-        mins
+      <div class="name-prep ">
+        <div class="section">
+          <label for="recipe-name">Recipe name </label>
+          <input
+            type="text"
+            class="recipe-name form-control"
+            id="recipe-name"
+            v-model="recipe.recipe_name"
+          />
+        </div>
+        <div>
+          <label for="prep-time">Prep time </label>
+          <div>
+            <input
+            type="number"
+            class="prep-time form-control"
+            size="5"
+            v-model="recipe.prep_time"
+          />
+          <span>  mins </span>
+          </div>
+          
+        </div>
       </div>
-      <label for="directions">Directions: </label>
-      <br />
+
+      <div class="section">
+        <label for="directions">Directions </label>
       <textarea
         name="directions"
-        id=""
-        cols="100"
-        rows="10"
+        class="directions form-control"
         v-model="recipe.directions"
       ></textarea>
-      <br />
-
-      <input
-        class="addTag"
+      </div>
+      
+   
+    <div class="section dir">
+       <label for="directions">Tags </label>
+       <div class="tags-text-btn">
+        <input
+        class="addTag form-control"
         type="text"
         placeholder="Add a tag"
         v-model="inputTag"
       />
-      <button class="addTag" @click.prevent="concatTag()">Add</button>
-      <p v-bind:show="recipe.tags">{{ recipe.tags }}</p>
+      <button class="addTag btn" @click.prevent="concatTag()"><span>Add</span></button>
+       </div>
+        
+    </div>
+    
+      
+      <div class="tag-list" v-bind:show="recipe.tags">{{ recipe.tags }}</div>
 
-      <div class="ingredients-content">
-        <label for="userInput">Add Ingredients: </label>
+      <div class="ingredients-content section">
+        <div>
+          <label for="ingredient"> Ingredient </label>
         <input
           type="text"
-          id="userInput"
+          id="ingredient"
+          class="form-control"
           v-model="inputIngredient.ingredient_name"
         />
-        <label for="amount">Amount: </label>
-        <input type="text" id="amount" v-model="inputIngredient.amount" />
-        <label for="unit">Unit: </label>
-        <select name="units" id="units" v-model="unit">
+        </div>
+        
+        <div>
+           <label for="amount">Amount </label>
+        <input
+          type="text"
+          class="form-control"
+          id="amount"
+          v-model="inputIngredient.amount"
+        />
+        </div>
+       
+       <div>
+         <label for="unit">Unit </label>
+        <select name="units" class="form-control" id="units" v-model="unit">
           <option value="cups">cups</option>
           <option value="Tbsp">Tbsp</option>
           <option value="Tsp">Tsp</option>
@@ -61,8 +88,10 @@
           <option value="gallons">gallons</option>
           <option value="units">units</option>
         </select>
-        <button class="addIngredient" @click.prevent="concatIngredient()">
-          Add
+       </div>
+       
+        <button class="addIngredient btn" @click.prevent="concatIngredient()">
+          <span>Add</span>
         </button>
       </div>
 
@@ -71,24 +100,28 @@
           <li>{{ ingredient.amount }} of {{ ingredient.ingredient_name }}</li>
         </ul>
       </div>
-      <div class="file-upload">
-        <label for="food-pic">Upload a picture: </label>
-        <input
+      <div class="section upload">
+        <label for="food-pic" class="file-upload">Upload a picture: </label>
+     
+          <input
           type="file"
+          accept="image/*"
           id="food-pic"
           ref="uploadImage"
-          @change="onImageUpload()"
+          @change="onFileChange"
         />
+       
+        
       </div>
 
       <div class="btn-align">
         <input
-          class="submitBtn"
+          class="submitBtn btn"
           type="submit"
           v-on:click="addRecipeToDatabase()"
           value="Submit"
         />
-        <button class="cancelBtn" @click.prevent="clear()">Clear</button>
+        <button class="cancelBtn btn" @click.prevent="clear()"><span>Clear</span></button>
       </div>
     </form>
   </div>
@@ -121,10 +154,15 @@ export default {
     };
   },
   methods: {
-    onImageUpload() {
-      let file = this.$refs.uploadImage.files[0];
-      this.formData = new FormData();
-      this.formData.append("file", file);
+    onFileChange(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          this.recipe.food_pic = event.target.result; // changes to base 64 bytes
+        };
+        reader.readAsDataURL(file); //reading the file as a URL
+      }
     },
     submitFile() {
       axios({
@@ -180,9 +218,9 @@ export default {
           this.addIngredientToDatabase();
           this.submitFile();
         })
-        .catch(error => {
-               this.handleError(error)
-            });
+        .catch((error) => {
+          this.handleError(error);
+        });
 
       location.reload();
     },
@@ -232,88 +270,143 @@ export default {
 </script>
 
 <style scoped>
-.addIngredient {
-  background-color: #afe1af;
-  color: #422800;
+form.recipe-form {
+  padding: 35px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: solid 1px rgb(169, 168, 168);
+  border-radius: 10px;
+}
+.form-control {
+  border: 1px solid #ccc;
+  display: block;
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 20px;
+  background: 0 0;
+}
+
+.section {
+  margin-bottom: 18px;
+}
+
+.section.dir {
+  margin-bottom:5px;
+}
+
+.name-prep {
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 50px;
+}
+
+.ingredients-content {
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+}
+#amount {
+  max-width: 40px;
+  text-align: center;
+}
+
+.form-control.prep-time {
+  display: inline;
+  width: 50px;
+  text-align: center;
+}
+
+.addTag{
+  display: inline;
+}
+
+.tags-text-btn{
+  display: flex;
+  gap: 20px;
+  margin-bottom:0;
+  padding-bottom:0;
+}
+
+label {
+   display: inline-block;
+    width: 97%;
+    text-align: start;
+    padding-bottom: 5px;
+  
 }
 
 li {
   list-style-type: none;
 }
-.ingredients-content > input {
-  margin-right: 25px;
-  margin-bottom: 20px;
-}
-form.recipeForm > * {
-  margin-bottom: 15px;
-}
-label.prep-time {
-  margin-left: 25px;
-}
 
-input.prep-time {
-  width: 5em;
-}
-.name-prep {
-  margin-bottom: 12px;
-}
 .file-upload {
   margin-bottom: 16px;
 }
-form.recipeForm {
-  background-color: #ebf2ef;
-  font-family: system-ui, sans-serif;
+
+.directions {
+  width: 90%;
+  min-height: 100px;
+  font-size: 16px;
+    font-family: 'Dosis', sans-serif;
+
 }
+
+
+.btn {
+  background-color: #f7f8fa;
+  border: 1px solid #a4a3a3;
+  box-sizing: border-box;
+  color: #353434;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  margin: 0;
+ height: 8px;
+  outline: none;
+  padding: 1rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+    width: fit-content;
+    border-radius: 0.25rem;
+    margin: 5px;
+    line-height: 0.2em;  
+}
+
+button.addIngredient.btn{
+  margin-top: 25px;
+}
+
+.btn:hover {
+  color: #fff;
+  background-color: #aca8a8;
+  box-shadow: rgba(61, 61, 61, 0.25) 0 2px 2px;
+}
+
 
 .btn-align {
   display: flex;
   justify-content: center;
 }
-button:hover {
-  transform: scale(1.05);
+
+div.tag-list {
+  color: rgb(46, 110, 77);
+  text-align:left;
+  margin-bottom: 20px;
+  padding-left: 18px;
 }
 
-button:focus {
-  outline: 0 solid transparent;
-}
-button {
-  background-color: #fbeee0;
-  border: 2px solid #422800;
-  border-radius: 10px;
-  box-shadow: #422800 4px 4px 0 0;
-  color: #422800;
-  cursor: pointer;
-  display: inline-block;
-  font-weight: 600;
-  font-size: 15px;
-  padding: 0 3px;
-  line-height: 30px;
+label.file-upload {
   text-align: center;
-  text-decoration: none;
-  font-family: "Dosis", monospace, sans-serif;
+  margin-top: 15px;
+  margin-bottom:2px;
 }
 
-.submitBtn,
-.cancelBtn {
-  background-color: #fbeee0;
-  border: 2px solid #422800;
-  border-radius: 10px;
-  box-shadow: #422800 4px 4px 0 0;
-  color: #422800;
-  cursor: pointer;
-  display: inline-block;
-  font-weight: 600;
-  font-size: 15px;
-  padding: 0 3px;
-  line-height: 30px;
-  text-align: center;
-  text-decoration: none;
-  font-family: "Dosis", monospace, sans-serif;
+div.section.upload{
+  /* display: flex;
+  justify-content: flex-start; */
+  
 }
 
-.submitBtn:hover,
-.cancelBtn:hover {
-  font-weight: 2em;
-  cursor: pointer;
-}
 </style>

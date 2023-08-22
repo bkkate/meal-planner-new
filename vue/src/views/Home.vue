@@ -177,9 +177,9 @@ export default {
       
  }
 section:hover{
-   border: 1px solid #4a7545;
+   border: 1px solid #dcf3d9;
     border-radius: 9px;
-    box-shadow: 0 0 4px 1px rgba(25, 247, 121, 0.925);
+    box-shadow: 0 0 4px 1px rgba(213, 235, 222, 0.925);
 }
  .container2{
    display: flex;

@@ -36,7 +36,7 @@
       <div class="delete-btns">
         <button @click="deleteSelected">Delete selected ingredients</button>
         <button @click="deleteAll">Delete All</button>
-         <button v-on:click="handlePrint()">Print Grocery List</button>
+        <button v-on:click="handlePrint()">Print Grocery List</button>
       </div>
     </div>
   </div>
@@ -67,9 +67,9 @@ export default {
     this.pageloadingmethod();
   },
   methods: {
-    handlePrint(){
-    window.print();
-  },
+    handlePrint() {
+      window.print();
+    },
     addSelectedIngredients() {
       this.addedgroceries.push({
         quantity: this.amount,
@@ -111,28 +111,46 @@ export default {
     addItemsTogether() {
       for (let i = 0; i < this.grocerylist.length; i++) {
         let currentGrocery = this.grocerylist[i];
-        if (currentGrocery.ingredient_name != null) { // if it's a food item
-          if (i != 0 && currentGrocery.ingredient_name ===this.grocerylist[i - 1].ingredient_name) { // if the ingredient names match
-            
+        if (currentGrocery.ingredient_name != null) {
+          // if it's a food item
+          if (
+            i != 0 &&
+            currentGrocery.ingredient_name ===
+              this.grocerylist[i - 1].ingredient_name
+          ) {
+            // if the ingredient names match
+
             // example case:
             // if carrots: 2 cups,  carrots: 1 tsp,   carrots: 3 cups
             // updatedFoodList would have carrots: 2 cups, 1 tsp.  We need to add 3 cupts to 2 cups
-          
-            
-            let amountCurr = currentGrocery.quantity.split(" ");  // [3, cups]
+
+            let amountCurr = currentGrocery.quantity.split(" "); // [3, cups]
             let unitCurr = amountCurr[1];
 
-              // "2 cups, 1 tsp"
-            let amountOfSameIngredient = this.updatedFoodList[this.updatedFoodList.length-1].quantity.split(", ");  // ['2 cups', '1 tsp']
+            // "2 cups, 1 tsp"
+            let amountOfSameIngredient =
+              this.updatedFoodList[
+                this.updatedFoodList.length - 1
+              ].quantity.split(", "); // ['2 cups', '1 tsp']
 
-              let amountUpdated = false;
+            let amountUpdated = false;
 
             for (let i = 0; i < amountOfSameIngredient.length; i++) {
               if (amountOfSameIngredient[i].includes(unitCurr)) {
-                  let amountTotal = parseInt(amountOfSameIngredient[i].substring(0, amountOfSameIngredient[i].indexOf(" "))) + parseInt(amountCurr[0]);
-                   amountOfSameIngredient[i] = amountTotal.toString() + " " + amountOfSameIngredient[i].substring(amountOfSameIngredient[i].indexOf(" ")+1);
-                   amountUpdated = true;
-
+                let amountTotal =
+                  parseInt(
+                    amountOfSameIngredient[i].substring(
+                      0,
+                      amountOfSameIngredient[i].indexOf(" ")
+                    )
+                  ) + parseInt(amountCurr[0]);
+                amountOfSameIngredient[i] =
+                  amountTotal.toString() +
+                  " " +
+                  amountOfSameIngredient[i].substring(
+                    amountOfSameIngredient[i].indexOf(" ") + 1
+                  );
+                amountUpdated = true;
               }
             }
 
@@ -140,19 +158,18 @@ export default {
               amountOfSameIngredient.push(currentGrocery.quantity);
             }
 
-            this.updatedFoodList[this.updatedFoodList.length-1].quantity = amountOfSameIngredient.join(", ");
-
+            this.updatedFoodList[this.updatedFoodList.length - 1].quantity =
+              amountOfSameIngredient.join(", ");
           } else {
             this.updatedFoodList.push(currentGrocery);
           }
-
-        } else {   // store non-food groceries to nonFoodList array to handle them together
+        } else {
+          // store non-food groceries to nonFoodList array to handle them together
           this.nonFoodList.push(currentGrocery);
         }
       }
-    
+
       this.updatedFoodList = this.updatedFoodList.concat(this.nonFoodList);
-     
     },
   },
 };
@@ -223,19 +240,18 @@ button {
 #amount {
   margin: 10px;
 }
-@media print{
-  button{
+@media print {
+  button {
     display: none;
   }
-  #itemName{
+  #itemName {
     display: none;
   }
-  #amount{
+  #amount {
     display: none;
   }
-  .input-label{
+  .input-label {
     display: none;
   }
-
 }
 </style>

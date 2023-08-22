@@ -93,7 +93,7 @@ export default {
 .container2 {
   width: 100%;
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 2fr;
   grid-gap: 30px;
   justify-items: center;
 }
@@ -164,18 +164,17 @@ export default {
   display: inline-block;
 }
 .quicklinks li a:hover {
-  color: #FFEB3B;
+ font-weight: 600;
 }
 .info {
   position: relative;
 }
 .info li {
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  grid-template-areas: "images word";
-  margin-bottom: 16px;
+  display: flex;
+  gap: 15px;
   
 }
+
 .info li span:nth-child(1) {
   color:black;
   font-size: 20px;
@@ -197,7 +196,7 @@ export default {
   text-decoration: none;
 }
 .info a:hover {
-  color: #FFEB3B;
+  color: #3bff3b;
 }
 .copyright {
   width: 100%;

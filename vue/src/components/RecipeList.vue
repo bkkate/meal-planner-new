@@ -1,116 +1,132 @@
 <template>
   <div class="page">
-    <div class="page-title">
-      <h2 class="title">My Recipes</h2>
-      <!-- <form class="search-form">
-          <input type="text" placeholder="Search...">
-          <button type="submit"><i class="fa fa-search"></i></button>
-        </form> -->
-      <button class="addNewRecipe" v-on:click="toggleShowForm()">Add New Recipe</button>
-    
-    </div> 
-    <div id="form-background">
-    <new-recipe-form  id="form" v-if="showForm"/>
-      <div class="recipe-container">
-      <div class="recipe">
-        <div v-for="recipe in recipes" v-bind:key="recipe.recipeId" class="recipe-card"> 
-          <div id="recipe-box">
-            <h1><router-link class="h1" v-bind:to="{ name:'recipesId', params:{recipeId:recipe.recipeId}}">{{recipe.recipe_name}}</router-link></h1>
-           <div class="image">
-              <!-- <img src="../assets/1M.png" alt="Pot Roast" /> -->
-              <!-- <img :src="randomItem(images, recipe.recipe_name)" class="foodPic" /> -->
-             <img :src="getRecipeId(recipe.recipeId)"  alt="first imag" class="foodPic"/>
-            </div>
-            <div class="tag"><h5 class="tag">Tag:</h5>
-            <p class="tag">{{recipe.tags}}</p>
+    <section class="top-title">
+      <div class="title">My Recipes</div>
+      <div class="desc">Manage your recipes and add new ones!</div>
+    </section>
+    <button class="addNewRecipe" v-on:click="toggleShowForm()">
+      Add New Recipe
+    </button>
+
+    <new-recipe-form id="form" v-if="showForm" />
+
+    <section class="filters">
+      <div class="filter-btn all">all</div>
+      <div class="filter-btn">favorites</div>
+      <div class="filter-btn">name</div>
+      <div class="filter-btn tags">tags</div>
+    </section>
+
+    <div class="recipe">
+      <div
+        v-for="recipe in recipes"
+        v-bind:key="recipe.recipeId"
+        class="recipe-card"
+      >
+        <div class="food-name">
+          <router-link
+            class="h1"
+            v-bind:to="{
+              name: 'recipesId',
+              params: { recipeId: recipe.recipeId },
+            }"
+            >{{ recipe.recipe_name }}</router-link
+          >
+        </div>
+        <div class="image">
+          <img
+            :src="getRecipeId(recipe.recipeId)"
+            alt="first imag"
+            class="foodPic"
+          />
+        </div>
+
+        <div class="meta-heart">
+  
+          <div>
+            <div class="tags">
+              <span class="tag">Tags:</span>
+              <span class="tag">{{ recipe.tags }}</span>
             </div>
             <div class="time">
-              <h5 class="time">Prep Time:</h5>
-            <p class="time">{{recipe.prep_time}}</p>
+              <span class="time">Prep Time:</span>
+              <span class="time">{{ recipe.prep_time }}</span>
             </div>
-            </div>
-        </div>
+          </div>
+          <div class="icon">
+            <i></i>
+          </div>
         </div>
       </div>
-      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import recipeService from "../services/RecipeService.js";
-import NewRecipeForm from './NewRecipeForm.vue';
+import NewRecipeForm from "./NewRecipeForm.vue";
 
 export default {
-
-    name: 'recipes',
+  name: "recipes",
   data() {
     return {
       recipes: [],
       showForm: false,
-      images:[
-        require('../assets/meal-sample1.jpg'),
-         require('../assets/meal-sample2.png'),
-          require('../assets/meal-sample3.png'),
-         require('../assets/meal-sample-4.jpg'),
-          require('../assets/food-plate-icon.png'),
-           require('../assets/1M.png'),
-            require('../assets/M6.png'),
-           require('../assets/M9.png')
+      images: [
+        require("../assets/meal-sample1.jpg"),
+        require("../assets/meal-sample2.png"),
+        require("../assets/meal-sample3.png"),
+        require("../assets/meal-sample-4.jpg"),
+        require("../assets/food-plate-icon.png"),
+        require("../assets/1M.png"),
+        require("../assets/M6.png"),
+        require("../assets/M9.png"),
       ],
-    }
+    };
   },
   components: {
-    NewRecipeForm
+    NewRecipeForm,
   },
   methods: {
     toggleShowForm() {
       this.showForm = !this.showForm;
     },
-      // randomItem(items, name) {
-      //   if (name === 'Crock Pot Roast') return require('../assets/Old-Fashioned-Pot-Roast.png');
-      //   else if(name === 'Roasted Asparagus') return  require('../assets/roasted-asparagus.jpg');
-      //   else {
-      //      return items[Math.floor(Math.random()*items.length)];
-      //   }
-       
-      // },
+    randomItem(items) {
+      return items[Math.floor(Math.random() * items.length)];
+    },
 
-      randomItem(items) {
-           return items[Math.floor(Math.random()*items.length)];
-        },
-
-      getRecipeId(recipeId){
-            let matchingImage = this.$store.state.images.find(recipesimg => recipesimg.id === recipeId);           
-             if (matchingImage != undefined) {return matchingImage.path;}
-             else {return this.randomItem(this.images);}
-
+    getRecipeId(recipeId) {
+      let matchingImage = this.$store.state.images.find(
+        (recipesimg) => recipesimg.id === recipeId
+      );
+      if (matchingImage != undefined) {
+        return matchingImage.path;
+      } else {
+        return this.randomItem(this.images);
       }
-    
+    },
   },
 
   //** might not need this*/
   created() {
-    recipeService.getRecipes(this.$route.params.userId).then(response => {
+    recipeService.getRecipes(this.$route.params.userId).then((response) => {
       this.recipes = response.data;
     });
-    
   },
-// computed: {
-//     recipe() {
-    
-//       return this.$store.state.recipesimg.find(recipesimg => recipesimg.id === this.$route.params.recipe.recipe.Id)
-//     }
-//   }
+  // computed: {
+  //     recipe() {
 
-}
+  //       return this.$store.state.recipesimg.find(recipesimg => recipesimg.id === this.$route.params.recipe.recipe.Id)
+  //     }
+  //   }
+};
 </script>
 <style scoped>
-@import url(https://fonts.googleapis.com/css2?family=Dosis);
+@import url(https://fonts.googleapis.com/css2?&family=Italiana&family=Lato&family=Poppins&family=Nanum+Gothic:wght@400;700&family=Noto+Sans:wght@300;400&family=Open+Sans:wght@300;400;500;600;700;800&display=swap);
 
-.page{
-  font-family: 'Dosis', monospace, sans-serif;
+.page {
+  font-family: "Dosis", "Poppins", sans-serif;
   text-align: center;
-  font-family: 'Dosis', monospace, sans-serif;
   /* background: url(../assets/white-background.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -118,154 +134,187 @@ export default {
   background-size: cover; */
   /* padding-bottom: 50px; */
   margin: 0px;
+  background-color: #f7f7f7;
+  background-color: #fff;
 }
-.title{
+
+section.top-title {
+  background: url("../assets/light-orange-right.jpg") no-repeat center center;
+  /* background: url('../assets/blue-right.jpg') no-repeat center center; */
+  background-size: cover;
+  height: 320px;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.title {
   color: #422800;
   /* color:#0d75134b; */
   /* text-shadow: 2px 1px 1px black; */
-  font-size: 42px;
+  font-size: 36px;
   align-content: center;
-  padding: 20px;
-  grid-area: "title";
-  text-align: center;
-  margin-top: 0;
-  margin-bottom: 20px;
-  
+  padding: 100px 100px 40px 100px;
 }
 
-div.page-title h1{
-  text-align: center;
-}
-.recipe-container{
-  background-color: #f3e5bd;
-  /* margin-top: 10px; */
-}
-div.recipe{
-  display: flex;
-      flex-wrap: wrap; 
-      margin: 0 auto;
-      border-radius: 10px;
-      justify-content: space-around;
-      padding: 2%;
-}
-.recipe-card{
-  width: calc(100% * (1/4) - 10px - 1px);
-  border-radius: 10px;
+.desc {
+  padding: 0px 100px 100px 100px;
+  font-size: 20px;
 }
 
-.recipe{
-  grid-area: card;
-  /* display: flex; */
-  /* flex-wrap: wrap;
-  justify-content: space-around; */
-  
-}
-.h1{
-  color: rgb(20, 73, 187);
-  text-decoration: none;
-}
-.tag{
-  display: inline-block;
-  padding: 5px;
-}
-.time{
-  display: inline-block;
-  padding: 5px;
-}
-.addNewRecipe {
-margin-right: 15px;
-  background: #c1ecc1;
-  backface-visibility: hidden;
-  border-radius: .375rem;
-  border-width: .125rem;
-  color: #180d04;
-  cursor: pointer;
-  font-family: 'Dosis', monospace, sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 1.2;
-  padding: 0.5rem;
-  position: relative;
-  text-align: left;
-  margin-bottom: 15px;
-
-  /* background: #cdeccd;
-  border-radius: 900px;
-  box-shadow: #bdbdfa 0 10px 20px -10px;
-  color: #180d04;
-  cursor: pointer;
-  font-family: Inter, Helvetica;
-  font-weight: 700;
-  line-height: 24px;
-  outline: 0 solid transparent;
-  padding: 8px 18px;
-  border: 0;
-  margin: 0 auto;
-  display: flex;
-  font-family: 'Dosis', monospace, sans-serif; */
-}
-button:hover{
-  transform: scale(1.05);
-}
-
-button:focus{
-  outline: 0 solid transparent;
-}
-button{
-   background-color: #fbeee0;
-  border: 2px solid #422800;
-  border-radius: 30px;
-  box-shadow: #422800 4px 4px 0 0;
-  color: #422800;
-  cursor: pointer;
-  display: inline-block;
-  font-weight: 600;
-  font-size: 15px;
-  padding: 0 3px;
-  line-height: 30px;
-  text-align: center;
-  text-decoration: none;
-  font-family: 'Dosis', monospace, sans-serif;
-
-}
-
-
-#form {
+section.filters {
   display: flex;
   justify-content: center;
-  margin-left: 450px;
-  margin-right: 450px;
-  border-radius: 25px;
-  padding: 20px;
-  background-color: rgb(236, 245, 226);
-  border: solid 4px;
+  gap: 18px;
+  margin: 30px;
+  margin-bottom: 5px;
 }
-.foodPic {
-  width: 250px;
-  height: 250px;
-  border-radius: 15px;
-  background-color: white;
-  /* border: solid 4px; */
-  /* max-width: 80%; */
-  /* height: auto; */
-}
-.page-title{
-  background-color: #f3e5bd;
-}
-#form-background{
-  background-color: #f3e5bd;
-}
-#recipe-box{
-  background-color: aliceblue;
-  border-radius: 25px;
-  border: solid 3px;
-  margin: 20px;
 
+.filter-btn {
+  cursor: pointer;
+  border: 1px solid rgba(8, 9, 9, 0.15);
+  appearance: none;
+  background: transparent;
+  border: 1px solid rgba(8, 9, 9, 0.15);
+  border-radius: 300px;
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0,
+    rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+  color: #000000;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 34px;
+  padding: 6px 15px;
 }
-#recipe-box:hover {
-    border: 1px solid #4a7545;
-    border-radius: 9px;
-    box-shadow: 0 0 4px 1px rgba(25, 247, 121, 0.925);
+
+.filter-btn.all,
+.filter-btn.tags {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.filter-btn:hover {
+  background-color: #f8f7f4;
+}
+
+div.recipe {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 30px;
+}
+
+.recipe-card {
+  width: 300px;
+  height: 400px;
+  background: white;
+  border-radius: 20px;
+  border: 0.5px solid rgb(229, 224, 224);
+}
+
+.recipe-card:hover {
+  /* border-inline-end: 3px solid rgb(226, 226, 226);
+  border-bottom: 3px solid rgb(226, 226, 226); */
+  cursor: pointer;
+  box-shadow: 0px 2px 8px rgba(30, 10, 60, 0.06),
+    0px 4px 12px rgba(30, 10, 60, 0.08);
+  transition: 0.3s;
+}
+
+a.h1 {
+  color: rgb(11, 44, 116);
+  text-decoration: none;
+  font-size: 25px;
+}
+
+.food-name {
+  margin: 8px;
+}
+
+.meta-heart{
+  display: flex;
+  justify-content: space-evenly;
+  padding-left: 85px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 4px;
+}
+.time {
+  display: inline-block;
+  padding: 3px;
+}
+
+#form {
+  margin: auto;
+  margin-top: 5px;
+  padding: 20px;
+  /* border: solid 1px rgb(161, 160, 160);
+   border-radius: 5px; */
+  width: 80vw;
+}
+img.foodPic {
+  width: 100%;
+  height: 250px;
+  background-color: white;
+  margin: 0;
+  padding: 0;
+}
+
+i {
+  cursor: pointer;
+  padding: 10px 12px 8px;
+  background: #fff;
+  border-radius: 50%;
+  border: solid 1px rgb(199, 197, 197);
+  color: #aaa;
+  transition: 0.2s;
+}
+
+i:hover {
+  color: #666;
+}
+
+i:before {
+  font-family: fontawesome;
+  content: "\f004";
+  font-style: normal;
+}
+
+.press-heart{
+  animation: size .4s;
+  color:#e23b3b;
+}
+
+button {
+  appearance: none;
+  background: transparent;
+  border: 1px solid rgba(8, 9, 9, 0.15);
+  border-radius: 300px;
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0,
+    rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+  color: #000000;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 34px;
+  padding: 6px 16px;
+  position: relative;
+  transition: background-color 0.7s, color 0.7s;
+}
+
+button:hover {
+  background-color: #e7e6df;
+  text-decoration: none;
+  transition-duration: 0.1s;
+}
+
+button:active {
+  background-color: #edeff2;
+  box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
+  transition: none 0s;
 }
 </style>
-

@@ -12,11 +12,10 @@
             mins
             </section>
             
-            <section>
+            <section class="text-box">
 
                 <label for="directions">Directions: </label>
-            <br>
-            <textarea class="directions" name="directions" id="" cols="80" rows="10" v-model="recipe.directions"></textarea>
+            <textarea class="directions" name="directions" v-model="recipe.directions"></textarea>
             </section>
             
             
@@ -165,11 +164,7 @@ export default {
                 this.ingredients = response.data;
                 this.showForm = false;
             })
-           
-
     }
-
-
 
     }
 }
@@ -289,8 +284,6 @@ button{
     cursor: pointer;
 }
 
-
-
 .ingredient-field, .amount-field{
     width: 22%;
     text-align: center;
@@ -299,21 +292,11 @@ button{
 
 }
 
-.amount-input{
-    width: 10%;
-}
 
-textarea.directions {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-
-    width: 95%;
-    
-}
-
-
-section {
-    margin-bottom: 10px;
+.directions {
+     height: 100px;
+   width: 98%;
+   padding:1%;
+   border:none;
 }
 </style>
