@@ -35,6 +35,8 @@ CREATE TABLE recipes(
 	is_public boolean,
 	created_by int,
 	is_favorite boolean,
+	image bytea NULL,
+    image_type varchar(20),
 	
 	CONSTRAINT PK_recipes PRIMARY KEY (recipe_id),
 	CONSTRAINT FK_recipes_created_by FOREIGN KEY (created_by) REFERENCES users(user_id)
