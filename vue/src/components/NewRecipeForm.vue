@@ -1,7 +1,7 @@
 <template>
   <div>
     <form action="#" v-on:submit.prevent="" class="recipe-form">
-      <div class="name-prep ">
+      <div class="name-prep">
         <div class="section">
           <label for="recipe-name">Recipe name </label>
           <input
@@ -15,81 +15,79 @@
           <label for="prep-time">Prep time </label>
           <div>
             <input
-            type="number"
-            class="prep-time form-control"
-            size="5"
-            v-model="recipe.prep_time"
-          />
-          <span>  mins </span>
+              type="number"
+              class="prep-time form-control"
+              size="5"
+              v-model="recipe.prep_time"
+            />
+            <span> mins </span>
           </div>
-          
         </div>
       </div>
 
       <div class="section">
         <label for="directions">Directions </label>
-      <textarea
-        name="directions"
-        class="directions form-control"
-        v-model="recipe.directions"
-      ></textarea>
+        <textarea
+          name="directions"
+          class="directions form-control"
+          v-model="recipe.directions"
+        ></textarea>
       </div>
-      
-   
-    <div class="section dir">
-       <label for="directions">Tags </label>
-       <div class="tags-text-btn">
-        <input
-        class="addTag form-control"
-        type="text"
-        placeholder="Add a tag"
-        v-model="inputTag"
-      />
-      <button class="addTag btn" @click.prevent="concatTag()"><span>Add</span></button>
-       </div>
-        
-    </div>
-    
-      
+
+      <div class="section dir">
+        <label for="directions">Tags </label>
+        <div class="tags-text-btn">
+          <input
+            class="addTag form-control"
+            type="text"
+            placeholder="Add a tag"
+            v-model="inputTag"
+          />
+          <button class="addTag btn" @click.prevent="concatTag()">
+            <span>Add</span>
+          </button>
+        </div>
+      </div>
+
       <div class="tag-list" v-bind:show="recipe.tags">{{ recipe.tags }}</div>
 
       <div class="ingredients-content section">
         <div>
           <label for="ingredient"> Ingredient </label>
-        <input
-          type="text"
-          id="ingredient"
-          class="form-control"
-          v-model="inputIngredient.ingredient_name"
-        />
+          <input
+            type="text"
+            id="ingredient"
+            class="form-control"
+            v-model="inputIngredient.ingredient_name"
+          />
         </div>
-        
+
         <div>
-           <label for="amount">Amount </label>
-        <input
-          type="text"
-          class="form-control"
-          id="amount"
-          v-model="inputIngredient.amount"
-        />
+          <label for="amount">Amount </label>
+          <input
+            type="text"
+            class="form-control"
+            id="amount"
+            v-model="inputIngredient.amount"
+          />
         </div>
-       
-       <div>
-         <label for="unit">Unit </label>
-        <select name="units" class="form-control" id="units" v-model="unit">
-          <option value="cups">cups</option>
-          <option value="Tbsp">Tbsp</option>
-          <option value="Tsp">Tsp</option>
-          <option value="grams">g</option>
-          <option value="pounds">lbs</option>
-          <option value="ounces">oz</option>
-          <option value="quarts">quarts</option>
-          <option value="pints">pints</option>
-          <option value="gallons">gallons</option>
-          <option value="units">units</option>
-        </select>
-       </div>
-       
+
+        <div>
+          <label for="unit">Unit </label>
+          <select name="units" class="form-control" id="units" v-model="unit">
+            <option value="cups">cups</option>
+            <option value="Tbsp">Tbsp</option>
+            <option value="Tsp">Tsp</option>
+            <option value="grams">g</option>
+            <option value="pounds">lbs</option>
+            <option value="ounces">oz</option>
+            <option value="quarts">quarts</option>
+            <option value="pints">pints</option>
+            <option value="gallons">gallons</option>
+            <option value="units">units</option>
+          </select>
+        </div>
+
         <button class="addIngredient btn" @click.prevent="concatIngredient()">
           <span>Add</span>
         </button>
@@ -101,17 +99,15 @@
         </ul>
       </div>
       <div class="section upload">
-        <label for="food-pic" class="file-upload">Upload a picture: </label>
-     
-          <input
+        <label for="image-upload" class="file-upload">Upload a picture: </label>
+
+        <input
           type="file"
           accept="image/*"
-          id="food-pic"
+          id="image-upload"
           ref="uploadImage"
-          @change="onFileChange"
+          @change="uploadImage"
         />
-       
-        
       </div>
 
       <div class="btn-align">
@@ -121,7 +117,9 @@
           v-on:click="addRecipeToDatabase()"
           value="Submit"
         />
-        <button class="cancelBtn btn" @click.prevent="clear()"><span>Clear</span></button>
+        <button class="cancelBtn btn" @click.prevent="clear()">
+          <span>Clear</span>
+        </button>
       </div>
     </form>
   </div>
@@ -129,7 +127,7 @@
 <script>
 import RecipeService from "../services/RecipeService";
 import IngredientService from "../services/IngredientService";
-import axios from "axios";
+import ImageService from "../services/ImageService.js";
 export default {
   data() {
     return {
@@ -148,32 +146,32 @@ export default {
         prep_time: "",
         food_pic: "",
         is_public: false,
+        is_favorite: false,
       },
       ingredients: [],
+      imageData: null,
       recipe_id: "",
     };
   },
   methods: {
-    onFileChange(event) {
+    // onFileChange(event) {
+    //   const file = event.target.files[0];
+    //   if (file) {
+    //     const reader = new FileReader();
+    //     reader.onload = (event) => {
+    //       this.recipe.food_pic = event.target.result; // changes to base 64 bytes
+    //     };
+    //     reader.readAsDataURL(file); //reading the file as a URL
+    //   }
+    // },
+    uploadImage(event) {
       const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          this.recipe.food_pic = event.target.result; // changes to base 64 bytes
-        };
-        reader.readAsDataURL(file); //reading the file as a URL
-      }
-    },
-    submitFile() {
-      axios({
-        url: `http://localhost:9000/recipes/images/${this.recipe_id}`,
-        method: "POST",
-        data: this.formData,
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "multipart/form-data",
-        },
-      });
+
+      const formData = new FormData();
+      formData.append("image", file);
+      formData.append("contentType", file.type);
+
+      this.imageData = formData;
     },
     clear() {
       this.inputTag = "";
@@ -214,9 +212,28 @@ export default {
     addRecipeToDatabase() {
       RecipeService.addNewRecipe(this.$store.state.user.id, this.recipe)
         .then((response) => {
-          this.recipe_id = response.data.recipeId;
-          this.addIngredientToDatabase();
-          this.submitFile();
+          // once new recipe was added to database
+          if (response.status === 200 || response.status === 201) {
+            console.log("Recipe successfully created!");
+            this.recipe_id = response.data.recipeId;
+
+            // add ingredients of the recipe to the database
+            this.addIngredientToDatabase();
+
+            // add recipe image on recipe table
+            if (this.imageData) {
+              ImageService.uploadImage(this.imageData, this.recipe_id)
+                .then((response) => {
+                  if (response.status === 200 || response.status === 201) {
+                    console.log("Image successfully uploaded!");
+                    this.$router.go();
+                  }
+                })
+                .catch(() => {
+                  console.log("Image was not uploaded");
+                });
+            }
+          }
         })
         .catch((error) => {
           this.handleError(error);
@@ -290,7 +307,7 @@ form.recipe-form {
 }
 
 .section.dir {
-  margin-bottom:5px;
+  margin-bottom: 5px;
 }
 
 .name-prep {
@@ -317,23 +334,22 @@ form.recipe-form {
   text-align: center;
 }
 
-.addTag{
+.addTag {
   display: inline;
 }
 
-.tags-text-btn{
+.tags-text-btn {
   display: flex;
   gap: 20px;
-  margin-bottom:0;
-  padding-bottom:0;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 label {
-   display: inline-block;
-    width: 97%;
-    text-align: start;
-    padding-bottom: 5px;
-  
+  display: inline-block;
+  width: 97%;
+  text-align: start;
+  padding-bottom: 5px;
 }
 
 li {
@@ -348,10 +364,8 @@ li {
   width: 90%;
   min-height: 100px;
   font-size: 16px;
-    font-family: 'Dosis', sans-serif;
-
+  font-family: "Dosis", sans-serif;
 }
-
 
 .btn {
   background-color: #f7f8fa;
@@ -362,19 +376,19 @@ li {
   display: inline-block;
   font-size: 14px;
   margin: 0;
- height: 8px;
+  height: 8px;
   outline: none;
   padding: 1rem 1rem;
   text-align: center;
   text-decoration: none;
-  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
-    width: fit-content;
-    border-radius: 0.25rem;
-    margin: 5px;
-    line-height: 0.2em;  
+  transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
+  width: fit-content;
+  border-radius: 0.25rem;
+  margin: 5px;
+  line-height: 0.2em;
 }
 
-button.addIngredient.btn{
+button.addIngredient.btn {
   margin-top: 25px;
 }
 
@@ -384,7 +398,6 @@ button.addIngredient.btn{
   box-shadow: rgba(61, 61, 61, 0.25) 0 2px 2px;
 }
 
-
 .btn-align {
   display: flex;
   justify-content: center;
@@ -392,7 +405,7 @@ button.addIngredient.btn{
 
 div.tag-list {
   color: rgb(46, 110, 77);
-  text-align:left;
+  text-align: left;
   margin-bottom: 20px;
   padding-left: 18px;
 }
@@ -400,13 +413,11 @@ div.tag-list {
 label.file-upload {
   text-align: center;
   margin-top: 15px;
-  margin-bottom:2px;
+  margin-bottom: 2px;
 }
 
-div.section.upload{
+div.section.upload {
   /* display: flex;
   justify-content: flex-start; */
-  
 }
-
 </style>
