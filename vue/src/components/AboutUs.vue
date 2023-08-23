@@ -1,10 +1,24 @@
 <template>
   <div>
-    <div class="container">
+    <div class="bg screen1">
+      <h1 class="logo-name">Planner Ahead</h1>
+      <div class="about-one">
+        Your one-stop solution for planning, cooking, and enjoying delicious and
+        healthy meals every day!
+      </div>
+      <div class="about-two">
+        We are a team of passionate food lovers and tech enthusiasts who came
+        together to make meal planning and cooking easier and more enjoyable for
+        everyone.
+      </div>
+    </div>
+    <div class="bg screen2">
+      <h1>meal</h1>
+    </div>
+    <div class="bg screen3"></div>
+    <div class="bg screen4"></div>
+    <!-- <div class="container">
       <div class="title">
-        <!-- <div>
-			<img src="../assets/healthy-food.jpg"/>
-			</div> -->
         <h1 class="plannerTitle">
           Welcome to <br /><span class="aboutUs"> PLANNER AHEAD</span><br />
           Meal Planner
@@ -132,7 +146,7 @@
           of healthy and tasty eating!
         </p>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -143,22 +157,32 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Baloo+Chettan+2&family=Calligraffitti&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Chettan+2&family=Dosis&family=Raleway:wght@300;400&display=swap");
 
-/*img {
-  position: absolute;
-      display: flex;
-      justify-content: flex-start; 
-  top: 0;
-  left: 0;
-  width: 50%;
-  height: 100%;
-
-  object-fit: cover;
-  -webkit-box-reflect: right;
+.bg {
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: "Raleway", "Dosis", sans-serif;
 }
-*/
-.para {
+
+.screen1 {
+  background-image: url(../assets/mealPlan-photo.jpg);
+}
+
+.screen2 {
+  background-color: #e6f3e6;
+}
+
+.screen3 {
+  background-color: #fbf7f2;
+}
+
+.screen4 {
+  background-image: url(../assets/blue-right.jpg);
+}
+/* .para {
   padding: 25px;
   width: 80%;
   margin: 0 auto;
@@ -168,7 +192,6 @@ export default {
 }
 .title {
   display: flex;
-  /* width: 45%; */
   flex-grow: 0.5;
   flex-direction: column;
   height: 10%;
@@ -181,7 +204,6 @@ export default {
 }
 
 .title h1 {
-  /* position: relative; */
   z-index: 1;
   text-align: center;
   color: rgb(3, 94, 48);
@@ -197,13 +219,6 @@ h1 {
 }
 
 h2 {
-  /* text-align: center;
-  color:rgb(2, 3, 20);
-   background: linear-gradient(
-    142deg,
-    rgb(160, 226, 143) 0%,
-    rgb(221, 240, 220) 100%
-  ); */
   text-align: center;
   font-family: "Calligraffitti", cursive;
   font-weight: 700;
@@ -228,13 +243,7 @@ p {
   text-align: center;
   font-weight: 600;
 }
-/* .specialPara {
-  border-radius: 10px 10px 10px 10px;
-  border-style: solid;
-    border-width: 2px;
-    border-color: #688492;
-    padding: 1;
-} */
+
 
 .specialSection {
   display: flex;
@@ -291,7 +300,6 @@ section {
   border-bottom-style: groove;
   max-width:80%;
   margin: 0 auto;
-  /* border-radius: 10px / 30px; */
   
 }
 
@@ -311,5 +319,5 @@ border-bottom-left-radius: 15px;
 .person {
   border-radius: 10%;
   padding: 10px;
-}
+} */
 </style>

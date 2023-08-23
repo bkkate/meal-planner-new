@@ -37,7 +37,7 @@ export default {
   padding-bottom: 2.5rem;
 }
 nav-bar {
-  grid-area: nav;
+  position: fixed;
 }
 router-view {
   grid-area: view;

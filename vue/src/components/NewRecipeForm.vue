@@ -103,7 +103,6 @@
 
         <input
           type="file"
-          accept="image/*"
           id="image-upload"
           ref="uploadImage"
           @change="uploadImage"
@@ -166,12 +165,14 @@ export default {
     // },
     uploadImage(event) {
       const file = event.target.files[0];
+      this.imageData = file;
 
       const formData = new FormData();
       formData.append("image", file);
       formData.append("contentType", file.type);
 
       this.imageData = formData;
+      console.log(this.imageData);
     },
     clear() {
       this.inputTag = "";
@@ -213,26 +214,26 @@ export default {
       RecipeService.addNewRecipe(this.$store.state.user.id, this.recipe)
         .then((response) => {
           // once new recipe was added to database
-          if (response.status === 200 || response.status === 201) {
-            console.log("Recipe successfully created!");
-            this.recipe_id = response.data.recipeId;
+          // if (response.status === 200 || response.status === 201) {
+          //   console.log("Recipe successfully created!");
+          this.recipe_id = response.data.recipeId;
 
-            // add ingredients of the recipe to the database
-            this.addIngredientToDatabase();
+          // add ingredients of the recipe to the database
+          this.addIngredientToDatabase();
 
-            // add recipe image on recipe table
-            if (this.imageData) {
-              ImageService.uploadImage(this.imageData, this.recipe_id)
-                .then((response) => {
-                  if (response.status === 200 || response.status === 201) {
-                    console.log("Image successfully uploaded!");
-                    this.$router.go();
-                  }
-                })
-                .catch(() => {
-                  console.log("Image was not uploaded");
-                });
-            }
+          // add recipe image on recipe table
+          if (this.imageData) {
+            ImageService.uploadImage(this.imageData, this.recipe_id)
+              .then((response) => {
+                if (response.status === 200 || response.status === 201) {
+                  console.log("Image successfully uploaded!");
+                  this.$router.go();
+                }
+              })
+              .catch(() => {
+                console.log("Image was not uploaded");
+              });
+            // }
           }
         })
         .catch((error) => {

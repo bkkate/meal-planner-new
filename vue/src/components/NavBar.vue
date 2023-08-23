@@ -95,9 +95,13 @@ export default {};
   justify-content: space-between;
   align-items: center;
   background-color: rgb(246, 249, 242);
-  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); */
   width: 100%;
-  height: 90px;
+  height: 80px;
+  padding: 5px 0;
+  /* position: fixed; */
+      border-bottom: 1px solid rgb(224, 231, 223);
+
+
 }
 
 .logoImg {

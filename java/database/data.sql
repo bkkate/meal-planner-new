@@ -6,7 +6,7 @@ INSERT INTO users(username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULi
 INSERT INTO recipes(recipe_name,directions,tags,prep_time,food_pic,is_public, created_by) 
 VALUES('Crock Pot Roast','Place beef roast in crock pot.  Mix the dried mixes together in a bowl and sprinkle over the roast. Pour the water around the roast. Cook on low for 7-9 hours.','gluten-free',10,null,true,1);
 
-INSERT INTO recipes(recipe_name,directions,tags,prep_time,food_pic,is_public,created_by) 
+INSERT INTO recipes(recipe_name,directions,tags,prep_time,food_pic,is_public,created_by, is_favorite)
 VALUES('Roasted Asparagus','Preheat oven to 425°F.' 
 'Cut off the woody bottom part of the asparagus spears and discard.' 
 'With a vegetable peeler, peel off the skin on the bottom 2-3 inches of the spears' 
@@ -16,7 +16,7 @@ VALUES('Roasted Asparagus','Preheat oven to 425°F.'
 Roast for 10-15 minutes, depending on the thickness of your stalks and how tender you like them.
 They should be tender when pierced with the tip of a knife.
 The tips of the spears will get very brown but watch them to prevent burning.
-They are great plain, but sometimes I serve them with a light vinaigrette if we need something acidic to balance out our meal.','Healthy',20,null,true,2);
+They are great plain, but sometimes I serve them with a light vinaigrette if we need something acidic to balance out our meal.','Healthy',20,null,true,2, true);
 
 INSERT INTO recipes(recipe_name,directions,tags,prep_time,food_pic,is_public,created_by)
 VALUES('Curried Lentils and Rice','Bring broth to a low boil.'
@@ -26,14 +26,14 @@ VALUES('Curried Lentils and Rice','Bring broth to a low boil.'
 	  'Enjoy!','Healthy',120,null,true,1);
 	
 	
-INSERT INTO recipes(recipe_name,directions,tags,prep_time,food_pic,is_public,created_by)
+INSERT INTO recipes(recipe_name,directions,tags,prep_time,food_pic,is_public,created_by, is_favorite)
 VALUES ('Big Night Pizza','Add hot water to yeast in a large bowl and let sit for 15 minutes.'
 	   'Mix in oil, sugar, salt, and flour and let sit for 1 hour.'
 	   'Knead the dough and spread onto a pan.'
 	   'Spread pizza sauce and sprinkle cheese.'
 	   'Add any optional toppings as you wish.'
 	   'Bake at 400 deg Fahrenheit for 15 minutes.'
-	   'Enjoy!','Veggan',25,null,true,1);
+	   'Enjoy!','Veggan',25,null,true,1, true);
 	
 INSERT INTO recipes(recipe_name,directions,tags,prep_time,food_pic,is_public,created_by)
 VALUES ('Mic Yorkshire Puds','Put the flour and some seasoning into a large bowl.'

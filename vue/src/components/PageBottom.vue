@@ -51,7 +51,6 @@
     <div class="copyright">
     <p>Copyright © 2023 Planner Ahead</p>
   </div>
-  <!-- </div> -->
 </div>
 </div>
 </template>
@@ -62,31 +61,28 @@ export default {
   }
 }
 
-
 </script>
 <style>
-/* div.footer{
-    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap')
-    *
-    */
    div.footer {
-  font-family: 'Dosis', monospace, sans-serif;
+  font-family: 'Dosis', sans-serif;
   margin: 0;
-  padding: 0;
+  padding: 2px 15px;
   box-sizing: border-box;
 }
  .container1 {
+    border-top: 1px solid rgb(224, 231, 223);
   display: grid;
   justify-content: end;
   align-content: end;
-  min-height: 15%;
+  max-height: 10%;
+  
 }
 .footer {
   position: relative;
   width: 100%;
   height: auto;
-  padding: 50px 100px;
-  background: rgb(226, 246, 202);
+
+  background-color: rgb(251, 253, 248);
   justify-items: center;
 }
 
@@ -94,16 +90,18 @@ export default {
   width: 100%;
   display: grid;
   grid-template-columns: 2fr 1fr 2fr;
-  grid-gap: 30px;
-  justify-items: center;
+  grid-gap: 40px;
+
 }
+
 .header {
   position: relative;
   color:black;
   font-weight: 500;
   margin-bottom: 15px;
-  padding-left: 35px;
+
   padding-top: 30px;
+  text-align: start;
 }
 /* .header::before {
   content: '';
@@ -118,7 +116,6 @@ export default {
 } */
 .aboutUsText {
   color: black;
-  padding-left: 35px;
   /* padding-top: 10px; */
 }
 .social-media {
@@ -135,7 +132,7 @@ export default {
   display: inline-block;
   width: 48px;
   height: 48px;
-  background: #89c36f;
+  background: #ceecc1;
   display: grid;
   align-content: center;
   justify-content: center;
@@ -145,7 +142,7 @@ export default {
   font-size: 20px;
 }
 .sm_a:hover {
-  background: #6380FE
+  background: #dde1f0
 }
 /* .sm_a .fa {
   color: black;
@@ -195,12 +192,10 @@ export default {
   color:black;
   text-decoration: none;
 }
-.info a:hover {
-  color: #3bff3b;
-}
+
 .copyright {
   width: 100%;
-  background: #89c36f;
+  background: #9ed584;
   padding: 2px 0;
   text-align: center;
   color: #fff;

@@ -10,12 +10,10 @@ public class Recipe {
     private String tags;
     @JsonProperty("prep_time")
     private int prepTime;
-
-    @JsonProperty("food_pic")
-    private String foodPic;
+    @JsonProperty("is_public")
     private boolean isPublic;
+    @JsonProperty("created_by")
     private int createBy;
-
     @JsonProperty("is_favorite")
     private boolean isFavorite;
     public Recipe(){}
@@ -27,7 +25,6 @@ public class Recipe {
         this.directions = directions;
         this.tags = tags;
         this.prepTime = prepTime;
-        this.foodPic = foodPic;
         this.isPublic = isPublic;
         this.createBy = createdBy;
         this.isFavorite = isFavorite;
@@ -68,34 +65,21 @@ public class Recipe {
     public int getPrepTime() {
         return prepTime;
     }
-
     public void setPrepTime(int prepTime) {
         this.prepTime = prepTime;
     }
-
-    public String getFoodPic() {
-        return foodPic;
-    }
-
-    public void setFoodPic(String foodPic) {
-        this.foodPic = foodPic;
-    }
-
     public boolean isPublic() {
         return isPublic;
     }
-
     public void setPublic(boolean aPublic) {
         isPublic = aPublic;
     }
-
     public boolean isFavorite() {
         return isFavorite;
     }
     public void setFavorite(boolean favorite) {
-        isFavorite = favorite;
+        this.isFavorite = favorite;
     }
-
     public int getCreateBy() {
         return createBy;
     }

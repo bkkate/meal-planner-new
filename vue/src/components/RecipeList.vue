@@ -11,15 +11,35 @@
     <new-recipe-form id="form" v-if="showForm" />
 
     <section class="filters">
-      <div class="filter-btn all">all</div>
-      <div class="filter-btn">favorites</div>
-      <div class="filter-btn">name</div>
-      <div class="filter-btn tags">tags</div>
+      <div class="filter-btn all" @click="filterDisplay">all</div>
+      <div class="filter-btn" @click="filterDisplay">favorites</div>
+      <div class="filter-btn" @click="handleSearch">name</div>
+      <div class="filter-btn tags" @click="handleSearch">tags</div>
     </section>
+
+    <div class="search-bar" v-if="showSearchBar">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="25"
+        height="25"
+        viewBox="0 0 50 50"
+      >
+        <path
+          d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"
+        ></path>
+      </svg>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Search..."
+        v-model="searchTerm"
+        v-on:keyup.enter="searchResults"
+      />
+    </div>
 
     <div class="recipe">
       <div
-        v-for="recipe in recipes"
+        v-for="recipe in currentRecipesDisplay"
         v-bind:key="recipe.recipeId"
         class="recipe-card"
       >
@@ -34,15 +54,10 @@
           >
         </div>
         <div class="image">
-          <img
-            :src="getRecipeId(recipe.recipeId)"
-            alt="first imag"
-            class="foodPic"
-          />
+          <img :src="getImgSrc(recipe)" alt="first imag" class="foodPic" />
         </div>
 
         <div class="meta-heart">
-  
           <div>
             <div class="tags">
               <span class="tag">Tags:</span>
@@ -54,7 +69,11 @@
             </div>
           </div>
           <div class="icon">
-            <i></i>
+            <i
+              class="heart"
+              v-bind:class="{ 'heart-active': recipe.is_favorite }"
+              @click="toggleFavorites(recipe)"
+            ></i>
           </div>
         </div>
       </div>
@@ -71,7 +90,12 @@ export default {
   data() {
     return {
       recipes: [],
+      currentRecipesDisplay: [],
+      favorites: [],
       showForm: false,
+      showSearchBar: false,
+      searchTerm: "",
+      searchCategory: "",
       images: [
         require("../assets/meal-sample1.jpg"),
         require("../assets/meal-sample2.png"),
@@ -95,30 +119,120 @@ export default {
       return items[Math.floor(Math.random() * items.length)];
     },
 
-    getRecipeId(recipeId) {
+    getImgSrc(recipe) {
+      // sample data
       let matchingImage = this.$store.state.images.find(
-        (recipesimg) => recipesimg.id === recipeId
+        (recipesimg) => recipesimg.id === recipe.recipeId
       );
       if (matchingImage != undefined) {
         return matchingImage.path;
       } else {
+        // saved photo retrieval (if not null)
+        const imageData = recipe.image;
+        const imageType = recipe.image_type;
+        if (imageData != null) {
+          const dataURL = `data:${imageType};base64,${imageData}`;
+          return dataURL;
+        }
+
+        // random picture display if user didn't save any photo
         return this.randomItem(this.images);
       }
     },
-  },
 
-  //** might not need this*/
+    toggleFavorites(recipe) {
+      // if the is_favorite property true,
+      if (recipe.is_favorite) {
+        recipe.is_favorite = false;
+        // update database
+        recipeService.modifyRecipe(recipe.recipeId, recipe);
+
+        // update our state
+        this.favorites = this.favorites.filter((recipe) => recipe.is_favorite);
+      } else {
+        recipe.is_favorite = true;
+        recipeService.modifyRecipe(recipe.recipeId, recipe);
+        this.favorites.push(recipe);
+      }
+    },
+
+    // filter buttons
+    filterDisplay(event) {
+      const filterType = event.target.innerText;
+      switch (filterType) {
+        case "all":
+          this.currentRecipesDisplay = this.recipes;
+          break;
+        case "favorites":
+          this.currentRecipesDisplay = this.favorites;
+          break;
+        default:
+          this.currentRecipesDisplay = this.recipes;
+      }
+      this.removeActiveButton();
+      event.target.classList.add("special");
+
+      // to make sure if user clicks on these tags with the search bar open, close the search bar
+      this.showSearchBar = false;
+    },
+
+    // Clicking on the 'name' or 'tags' buttons
+    handleSearch(event) {
+      // highlighting button
+      this.removeActiveButton();
+      event.target.classList.add("special");
+      const filterType = event.target.innerText;
+
+      // toggle search bar
+      this.showSearchBar = !this.showSearchBar;
+
+      if (filterType === "name") {
+        this.searchCategory = "name";
+      }
+      // if filterType is tags
+      else {
+        this.searchCategory = "tags";
+      }
+    },
+
+    searchResults() {
+      if (this.searchCategory ==="name") {
+          this.currentRecipesDisplay = this.recipes.filter((recipe) => recipe.recipe_name.includes(this.searchTerm))
+      }
+      if (this.searchCategory === "tags") {
+        this.currentRecipesDisplay = this.recipes.filter((recipe) => {
+          const tagsArr = recipe.tags.split(",");
+          let includesTag = false;
+          tagsArr.forEach((tag) => {
+            if (tag.toLowerCase() === this.searchTerm.toLowerCase()) includesTag = true;
+          });
+          return includesTag;
+        })
+      }
+    },
+
+    // removing the "special" styling from all the .special class btns
+    removeActiveButton() {
+      document.querySelector(".special")?.classList.remove("special");
+    },
+  },
+  computed: {
+    selectedRecipeList() {
+      return this.currentRecipesDisplay;
+    },
+  },
   created() {
     recipeService.getRecipes(this.$route.params.userId).then((response) => {
-      this.recipes = response.data;
+      const data = response.data;
+      // sort the result by recipe name alphabetical order
+      this.recipes = data.sort((a, b) => {
+        return a.recipe_name.localeCompare(b.recipe_name);
+      });
+      this.currentRecipesDisplay = [...this.recipes];
+      console.log(this.currentRecipesDisplay);
+      this.favorites = data.filter((recipe) => recipe.is_favorite);
     });
   },
-  // computed: {
-  //     recipe() {
-
-  //       return this.$store.state.recipesimg.find(recipesimg => recipesimg.id === this.$route.params.recipe.recipe.Id)
-  //     }
-  //   }
 };
 </script>
 <style scoped>
@@ -161,6 +275,15 @@ section.top-title {
   font-size: 20px;
 }
 
+input.search-input {
+  border: none;
+  padding: 10px;
+}
+
+input.search-input:focus {
+  outline: none;
+}
+
 section.filters {
   display: flex;
   justify-content: center;
@@ -195,6 +318,34 @@ section.filters {
 
 .filter-btn:hover {
   background-color: #f8f7f4;
+}
+
+.special {
+  background-color: rgb(121, 121, 121);
+  color: #fff;
+}
+
+.special:hover {
+  background-color: rgb(121, 121, 121);
+  color: #fff;
+}
+
+.search-bar {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  width: 300px;
+  height: 50px;
+  border: 2px solid var(--grey-light-ui-200, #eeedf2);
+  align-items: center;
+  border-radius: 360px;
+  box-shadow: 0 16px 32px -25px rgba(0, 0, 0, 0.2);
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+svg {
+  padding-left: 30px;
 }
 
 div.recipe {
@@ -232,7 +383,7 @@ a.h1 {
   margin: 8px;
 }
 
-.meta-heart{
+.meta-heart {
   display: flex;
   justify-content: space-evenly;
   padding-left: 85px;
@@ -256,14 +407,14 @@ a.h1 {
   width: 80vw;
 }
 img.foodPic {
-  width: 100%;
+  width: 90%;
   height: 250px;
   background-color: white;
   margin: 0;
   padding: 0;
 }
 
-i {
+i.heart {
   cursor: pointer;
   padding: 10px 12px 8px;
   background: #fff;
@@ -273,19 +424,26 @@ i {
   transition: 0.2s;
 }
 
-i:hover {
+i.heart:hover {
   color: #666;
 }
 
-i:before {
+i.heart:before {
   font-family: fontawesome;
   content: "\f004";
   font-style: normal;
 }
 
-.press-heart{
-  animation: size .4s;
-  color:#e23b3b;
+i.heart-active {
+  color: #e23b3b;
+}
+/* .press-heart {
+  animation: size 0.4s;
+  color: #e23b3b;
+} */
+
+i.heart-active:hover {
+  color: #f47f7f;
 }
 
 button {
