@@ -94,13 +94,13 @@ export default {};
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(246, 249, 242);
+  /* background-color: rgb(246, 249, 242); */
+    background-color: #fff;
   width: 100%;
   height: 80px;
   padding: 5px 0;
   /* position: fixed; */
       border-bottom: 1px solid rgb(224, 231, 223);
-
 
 }
 
@@ -150,9 +150,10 @@ export default {};
   font-size: 16px;
 }
 .nav-links a:hover {
-  background-color: #f5f9d7;
+  background-color: #e2e2df;
   border-radius: 100px;
   padding: 5px 10px;
   outline: 3px solid transparent;
+  font-weight:bold;
 }
 </style>

@@ -1,152 +1,168 @@
 <template>
-  <div>
+  <div class="page">
     <div class="bg screen1">
-      <h1 class="logo-name">Planner Ahead</h1>
-      <div class="about-one">
-        Your one-stop solution for planning, cooking, and enjoying delicious and
-        healthy meals every day!
-      </div>
-      <div class="about-two">
-        We are a team of passionate food lovers and tech enthusiasts who came
-        together to make meal planning and cooking easier and more enjoyable for
-        everyone.
+      <div class="first-container">
+        <h1 class="logo-name">Planner Ahead.</h1>
+        <div class="about-one">
+          Your one-stop solution for planning, cooking, and enjoying delicious
+          and healthy meals every day!
+        </div>
       </div>
     </div>
     <div class="bg screen2">
-      <h1>meal</h1>
-    </div>
-    <div class="bg screen3"></div>
-    <div class="bg screen4"></div>
-    <!-- <div class="container">
-      <div class="title">
-        <h1 class="plannerTitle">
-          Welcome to <br /><span class="aboutUs"> PLANNER AHEAD</span><br />
-          Meal Planner
-        </h1>
-      </div>
-      <div class="para">
-        <section class="section">
-          <h2>Our mission</h2>
-          <p style="font-weight: bold; text-align: center">
-            Your one-stop solution for planning, cooking, and enjoying delicious
-            and healthy meals every day!
-          </p>
-          <p>
+      <div class="mission-container">
+        <img src="../assets/screenshots/sample-screenshot.png" alt="recipe" />
+        <div>
+          <h1 class="mission">our mission<span>_</span></h1>
+          <div class="mission-one mission-statement">
             We are a team of passionate food lovers, nutrition experts, and tech
             enthusiasts who came together to make meal planning and cooking
-            easier and more enjoyable for everyone.
-          </p>
-          <p>
+            easier and more enjoyable
+          </div>
+
+          <!-- <div class="mission-two mission-statement">
             At Meal Planner, we believe that eating healthy and delicious meals
-            should be effortless, fun, and affordable for everyone. That's why
-            we created a simple and intuitive meal planning platform that helps
-            you plan your meals for the week, create a shopping list, and cook
-            delicious and healthy meals in no time.
+            should be effortless, fun, and affordable for everyone
+          </div> -->
+
+          <div class="mission-two mission-statement">
+            That's why we created a simple and intuitive meal planning platform
+            that helps you plan your meals for the week, create a shopping list,
+            and cook delicious and healthy meals in no time
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bg screen3">
+      <h2 class="special-title">Simplify your meal planning</h2>
+      <section class="section">
+        <div class="specialSection">
+          <div class="icon"><i class="bx bx-time-five"></i></div>
+          <div class="section-title">Save Time</div>
+          <p class="specialPara">
+            <span style="font-weight: bold; text-align: center"
+              >Take the hassle out of meal planning.
+            </span>
+            <br />
+            No more flipping through recipes books and coming up with meal ideas
+            everyday.
           </p>
-        </section>
+        </div>
 
-        <section class="section">
-          <h2>Simplify your meal planning</h2>
-          <div class="specialSection">
-            <div class="box">Save Time</div>
-            <p class="specialPara">
-              Our platform is designed to
-              <span style="font-weight: bold; text-align: center"
-                >take the hassle out of meal planning
-              </span>
-              and cooking. Whether you're a busy professional, a parent, a
-              student, or anyone who wants to eat healthy and tasty meals
-              without spending hours in the kitchen, Meal Planner is the perfect
-              solution for you.
+        <div class="specialSection">
+          <div class="icon"><i class="bx bx-customize"></i></div>
+          <div class="section-title">Customize</div>
+
+          <!-- <i class='bx bxs-customize'></i> -->
+          <p class="specialPara">
+            Our platform allows you to personalize your meal plans based on your
+            favorite foods, allergies, and nutritional goals.
+          </p>
+        </div>
+
+        <div class="specialSection">
+          <div class="icon"><i class="bx bx-layer-plus"></i></div>
+
+          <div class="section-title">Features</div>
+          <!-- <i class='bx bx-restaurant'></i> -->
+
+          <!-- <i class='bx bxs-layer-plus'></i> -->
+
+          <p class="specialPara">
+            Save all your recipes & created meal plans for later use.
+            <br />
+        Add, modify, delete any recipes or meal plans at any
+            time. Have tailored meal plans organized in one space!
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <!-- <div class="bg screen4">
+      <div class="testimonial">
+        <div class="testi-content">
+          <div class="slide">
+            <img src="../assets/person-one.jpg" alt="" class="image" />
+            <p>
+              As a busy graduate student, using the Planner Ahead meal planner
+              has saved me so much time so that I can focus on cooking.
             </p>
-          </div>
-
-          <div class="specialSection">
-            <div class="box">Customize</div>
-            <p class="specialPara">
-              We understand that everyone has different dietary needs and
-              preferences, which is why we offer a
-              <span style="font-weight: bold; text-align: center"
-                >wide range of customizable meal plans </span
-              >that cater to different diets, including vegetarian, vegan,
-              low-carb, and gluten-free. Our platform also allows you to
-              personalize your meal plans based on your favorite foods,
-              allergies, and nutritional goals.
-            </p>
-          </div>
-
-          <div class="specialSection">
-            <div class="box">Features</div>
-            <p class="specialPara">
-              Save all your recipes and created meal plans for later use. You
-              can always add, modify, delete any recipes or meal plans at any
-              time. Have tailored meal plans organized in one space!
-            </p>
-          </div>
-        </section>
-
-        <section class="section">
-          <h2>What our customers say</h2>
-          <div class="all-reviews">
-            <div class="review">
-              <span>
-                <img
-                  class="person"
-                  src="../assets/person-one.jpg"
-                  height="200"
-                  width="150"
-                />
-                <p class="person-name">Christina</p></span
-              >
-
-              <p>
-                As a busy graduate student, using the Planner Ahead meal planner
-                has saved me so much time so that I can focus on cooking
-              </p>
-            </div>
-            <div class="review">
-               <p>
-                I had all these recipes writed down that my Mom and Grandma used to make.  I was always spilling food on them and ruining them.
-                Now, I input all my family recipes in one location where they'll never get splashed with pasta sauce again! Plus, the grocery list 
-                feature saves me time!
-              </p>  
-               <span>
-                <img
-                  class="person"
-                  src="../assets/person-two.jpg"
-                  height="200"
-                  width="150"
-                />
-                <p class="person-name">Matthew</p></span
-              >
-              
-            </div>
-            <div class="review">
-               <span>
-                <img
-                  class="person"
-                  src="../assets/person-three.jpg"
-                  height="200"
-                  width="150"
-                />
-                <p class="person-name"> Nicky </p></span
-              >
-
-              <p>
-               I really love the features that Planner Ahead provides. I get to save all my recipes, and now it's so easy to look up any recipe that I need to use for the day!
-               
-              </p>
+            <i class="bx bxs-quote-alt-left quote-icon"></i>
+            <div class="details">
+              <span class="name">Christina</span>
+              <span class="job"> Graduate Student </span>
             </div>
           </div>
-        </section>
-        <p>
-          At Planner Ahead, we are committed to helping you eat healthier, save
-          time and money, and enjoy delicious and nutritious meals every day. We
-          hope you enjoy using our platform and join us on this exciting journey
-          of healthy and tasty eating!
-        </p>
+        </div>
       </div>
     </div> -->
+
+    <div class="bg screen4">
+      <div class="testimonial">
+        <div class="testi-content">
+          <swiper-container
+            :slidesPerView="1"
+            :spaceBetween="30"
+            :loop="true"
+            :pagination="{
+              clickable: true,
+            }"
+            :navigation="true"
+            :modules="modules"
+            class="mySwiper"
+          >
+            <swiper-slide>
+              <div class="slide">
+                <img src="../assets/person-one.jpg" alt="" class="image" />
+                <p>
+                  As a busy graduate student, using the Planner Ahead meal
+                  planner has saved me so much time so that I can focus on
+                  cooking.
+                </p>
+                <i class="bx bxs-quote-alt-left quote-icon"></i>
+                <div class="details">
+                  <span class="name">Christina</span>
+                  <!-- <span class="job"> Graduate Student </span> -->
+                </div>
+              </div>
+            </swiper-slide>
+            <swiper-slide>
+              <div class="slide">
+                <img src="../assets/person-two.jpg" alt="" class="image" />
+                <p>
+                  I had all these recipes written down that my Mom and Grandma
+                  used to make. I was always spilling food on them and ruining
+                  them. Now, I input all my family recipes in one location where
+                  they'll never get splashed with pasta sauce again! 
+                </p>
+                <i class="bx bxs-quote-alt-left quote-icon"></i>
+                <div class="details">
+                  <span class="name">Matthew</span>
+                  <!-- <span class="job"> Business Analyst </span> -->
+                </div>
+              </div>
+            </swiper-slide>
+            <swiper-slide>
+              <div class="slide">
+                <img src="../assets/person-three.jpg" alt="" class="image" />
+                <p>
+           I really love the features that Planner Ahead provides. I get to save all my recipes in one place, and it's so easy to look up any recipe that I need to use for the day!
+           Plus, the grocery list feature saves me time.
+
+                </p>
+                <i class="bx bxs-quote-alt-left quote-icon"></i>
+                <div class="details">
+                  <span class="name">Nicky</span>
+                  <!-- <span class="job"> CEO </span> -->
+                </div>
+              </div>
+            </swiper-slide>
+          </swiper-container>
+        </div>
+      </div>
+    </div>
+    <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
+
   </div>
 </template>
 
@@ -157,167 +173,245 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Baloo+Chettan+2&family=Dosis&family=Raleway:wght@300;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;500&family=Dosis&family=Raleway:wght@300;400&display=swap");
 
-.bg {
-  height: 100vh;
+.bg.screen1,
+.bg.screen2,
+.bg.screen4 {
+    font-family: "Poppins", "Raleway", "Dosis", sans-serif;
+
+  /* height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+   
+    box-sizing: border-box; */
+  font-weight: 300;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  /*  this is where the magic happens:  */
+  background-attachment: fixed;
   background-position: center;
-  background-repeat: no-repeat;
   background-size: cover;
-  font-family: "Raleway", "Dosis", sans-serif;
+}
+
+.bg.screen3 {
+     font-family: 'Helvetica',"Poppins", "Raleway", "Dosis", sans-serif;
+     font-weight: 300;
+  min-height: 100vh;
+  /*  this is where the magic happens:  */
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
 }
 
 .screen1 {
   background-image: url(../assets/mealPlan-photo.jpg);
 }
 
+.first-container {
+  padding: 150px 200px 0px 180px;
+}
+
+.screen1 .logo-name {
+  font-size: 3.5em;
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.screen1 .about-one {
+  font-size: 1.3em;
+  text-align: center;
+  padding: 80px 120px 50px 45px;
+}
+
 .screen2 {
   background-color: #e6f3e6;
 }
 
+.screen2 .mission-container {
+  display: flex;
+}
+
+.screen2 img {
+  display: block;
+  max-width: 400px;
+  max-height: 600px;
+  width: auto;
+  height: auto;
+  margin: 50px;
+  box-shadow: 0px 2px 8px rgba(30, 10, 60, 0.06),
+    0px 4px 12px rgba(30, 10, 60, 0.08);
+  border-radius: 10px;
+}
+
+.screen2 .mission {
+  padding-top: 50px;
+}
+
+.screen2 .mission-statement {
+  font-size: 18px;
+  padding-top: 15px;
+}
 .screen3 {
-  background-color: #fbf7f2;
+  background-image: url(../assets/yellow-gradient.jpg);
+}
+
+.screen3 .special-title {
+  font-size: 2em;
+  padding: 80px 50px 0 50px;
+}
+
+.screen3 .section {
+  display: flex;
+  margin: 0 auto;
+  column-gap: 50px;
+  height: 65vh;
+  align-items: center;
+  padding: 0 50px;
+}
+
+.screen3 .specialSection {
+  width: 100%;
+}
+
+.specialSection .section-title {
+  text-align: center;
+  font-size: 26px;
+  padding: 10px;
+}
+
+p.specialPara {
+  text-align: center;
+  font-size: 18px;
+  padding: 8px;
+  color: rgb(66, 55, 9);
+  line-height: 28px;
+}
+
+.icon {
+  text-align: center;
+}
+i {
+  font-size: 50px;
+  color: rgb(34, 174, 137);
 }
 
 .screen4 {
-  background-image: url(../assets/blue-right.jpg);
+  /* background-color: #fbf7f2; */
+  background-color: rgb(248, 238, 225);
+  font-family: "Poppins", "Raleway", "Dosis", sans-serif;
+  box-sizing: border-box;
 }
-/* .para {
-  padding: 25px;
+
+.testimonial {
+  position: relative;
+  max-width: 900px;
   width: 80%;
-  margin: 0 auto;
-  background-color: aliceblue;
-  opacity: 0.953;
-  border-radius: 20px;
+  padding: 50px 0;
+  background-color: rgb(248, 238, 225);
 }
-.title {
+.testimonial .slide {
   display: flex;
-  flex-grow: 0.5;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
-  height: 10%;
-  margin: 0 auto;
-  margin-top: 1.2em;
-  margin-bottom: 1.2em;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  text-shadow: 5px 2px 2px rgba(255, 255, 255, 0.4);
-  background-color: #ecf5fd;
+  row-gap: 20px;
 }
 
-.title h1 {
-  z-index: 1;
+.slide p {
+  padding: 0 100px;
   text-align: center;
-  color: rgb(3, 94, 48);
-  align-content: center;
-  font-size: 3rem;
-  margin: 0;
-  padding: 0 20px;
+  font-size: 15px;
+  font-weight: 300;
+  color: #333;
 }
 
-h1 {
-  align-content: center;
-  margin: 40px 0;
+.slide .quote-icon {
+  font-size: 25px;
+  color: #4070f4;
 }
 
-h2 {
-  text-align: center;
-  font-family: "Calligraffitti", cursive;
+.slide .details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.details .name {
+  font-size: 16px;
   font-weight: 700;
-  font-size: 1.6em;
-  text-shadow: -15px 5px 20px #ced0d3;
-
-  letter-spacing: 0.02em;
-  color: #e78f14;
-  text-shadow: 2px 2px 0px #ffd662;
+  color: #333;
 }
 
-p {
-  font-size: 1.2em;
-  line-height: 1.5;
-  margin: 20px 0;
-  padding: 0 20px;
-  justify-content: center;
+.details .job {
+  font-size: 14px;
+  font-weight: 400;
+  color: #333;
+}
+.swiper {
+
+  position: relative;
+  overflow: clip;
+  list-style: none;
+  padding: 0;
+  z-index: 1;
+  display: block;
+}
+.testimonial .image {
+  height: 170px;
+  width: 170px;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
-.person-name {
-  margin-top: 0;
+
+@media only screen and (max-width: 990px) {
+  .first-container {
+    padding: 250px 200px 0px 120px;
+  }
+
+  .screen1 .logo-name {
+    font-size: 3.5em;
+    text-align: center;
+  }
+
+  .screen1 .about-one {
+    font-size: 1.5em;
+    text-align: center;
+    padding: 20px 80px 50px 20px;
+  }
+
+
+p.specialPara {
   text-align: center;
-  font-weight: 600;
+  font-size: 16px;
+  padding: 8px;
+  color: rgb(66, 55, 9);
+  line-height: 24px;
+}
 }
 
+@media only screen and (max-width: 600px) {
+  .bg {
+    width: 100%;
+  }
+  .first-container {
+    padding: 250px 80px 0px 50px;
+  }
 
-.specialSection {
-  display: flex;
-  border-radius: 10px 10px 10px 10px;
-  border-style: solid;
-  border-width: 2px;
-  border-color: #688492;
-  padding: 1;
-  margin: 15px;
-  align-items: center;
+  .screen1 .logo-name {
+    font-size: 3em;
+    text-align: center;
+  }
+
+  .screen1 .about-one {
+    font-size: 1.4em;
+    text-align: center;
+  }
 }
-
-.box {
-  text-align: center;
-  margin-left: 1em;
-  min-width: 15%;
-  color: white;
-  font-size: 1.2em;
-  background-color: #688492;
-}
-
-.aboutUs {
-  color: #ffd662;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  background-color: #faf7f0;
-  margin: 0 auto;
-  background-color: #faf7f0;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  justify-content: center;
-  width: 100%;
-  font-family: "Dosis", monospace, sans-serif;
-  background: url(../assets/mealPlan-photo.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  padding-bottom: 50px;
-}
-
-section {
-  margin-bottom: 40px;
-}
-
-.review {
-  display: flex;
-  align-items: center;
-  background-color: #dbf0e7;
-  padding-top: 20px;
-  border-bottom: 2px solid;
-  border-bottom-style: groove;
-  max-width:80%;
-  margin: 0 auto;
-  
-}
-
-.review:nth-child(even) {
-border-top-right-radius: 15px;
-border-bottom-left-radius: 15px;
-
-}
-
-
-.review:nth-child(odd) {
- border-top-left-radius: 15px;
- border-bottom-right-radius: 15px;
-
-}
-
-.person {
-  border-radius: 10%;
-  padding: 10px;
-} */
 </style>

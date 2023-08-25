@@ -15,7 +15,7 @@
         </div>
 
         <div class="addedTitleDisplay" v-if="!planNameAdded">
-          <h1 @click="modifyName">{{ mealPlanName }}</h1>
+          <h1 class="meal-name" @click="modifyName">{{ mealPlanName }}</h1>
           <!-- <button class="modifyBtn" @click.prevent="modifyName">Edit Name</button> -->
           <img
             src="../assets/pencil-edit-icon.jpg"
@@ -35,15 +35,9 @@
 
       <table>
         <thead>
-          <tr>
+          <tr class="row header-row">
             <div class="planContainer">
               <th class="tdata">
-                <img
-                  src="../assets/calendar-planner.jpg"
-                  class="calendarImg"
-                  height="80"
-                  width="80"
-                />
               </th>
               <th class="tdata">Date</th>
               <th class="tdata">Meal</th>
@@ -52,7 +46,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(plan, index) in displayModifiedCombos" v-bind:key="index">
+          <tr class="row" v-for="(plan, index) in displayModifiedCombos" v-bind:key="index">
             <div class="planContainer">
               <td class="tdata placehold" style="color: #ecf2f0">
                 <img
@@ -222,15 +216,7 @@ export default {
         return "Appetizer";
       }
     },
-    // addMealCombo() {
-    //   this.mealPlan.meal_type = parseInt(this.mealPlan.meal_type);
-    //   this.mealPlan.plan_name = this.mealPlanName;
-    //   this.mealPlan.recipe_id = this.currentRecipeId;
-
-    //   this.listOfPlans.push(this.mealPlan);
-
-    //   this.clear();
-    // },
+  
     addMealToDB() {
       this.listOfPlans.forEach((plan) => {
         plan.plan_name = this.mealPlanName;
@@ -282,28 +268,21 @@ export default {
 </script>
 
 <style scoped>
+.background {
+  text-align: center;
+  font-family:"Raleway","Dosis", monospace, sans-serif;
+  background: url("../assets/dumplings-right.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* background-color: #FFFACD; */
+}
 .wrapper {
-  /* margin-bottom: 15%;  */
-  background-color: rgb(255, 240, 221);
-  padding-bottom: 1ch;
   width:60%;
   border-radius: 25px;
-  margin-left: 20vw;
-  border: solid 4px;
 }
 .placehold {
   color: black;
-}
-.background {
-  text-align: center;
-  font-family: "Dosis", monospace, sans-serif;
-  background: url(../assets/veggies.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  padding-bottom: 50px;
-  padding-top: 50px;
 }
 .addBtn,
 .modifyBtn,
@@ -360,9 +339,9 @@ export default {
 .weekly-plan-name {
   text-align: center;
   padding: 30px;
-  background-color: rgba(255, 239, 14, 0.411);
+  /* background-color: rgba(255, 239, 14, 0.411); */
   border-radius: 25px 25px 0 0;
-  border-bottom: solid 2px;
+
 }
 
 .options {
@@ -371,36 +350,32 @@ export default {
   align-items: center;
   /* background-color:rgb(241, 249, 253); */
   margin: 0 auto;
-  width:70%;
-  margin-left: 10vw; 
 }
 
-
-.calendarImg {
-  border-radius: 25px;
-}
 
 table {
-  background-color: #ecf2f0;
-  margin: 50px auto;
-  margin-top: 20px;
   border-radius: 25px;
   text-align: center;
+  margin: 0 auto;
+  width:100%;
 }
+
 
 .tdata {
   padding: 1.2em;
   margin: 1.5em;
 }
 
-.tdata:nth-child(even) {
+/* .tdata:nth-child(even) {
   background-color: #dfe9e6;
-}
+} */
 
 
 .planContainer {
   display: flex;
-  justify-content: space-evenly center;
+  justify-content: space-evenly;
+  border: 1px solid rgb(226, 224, 224);
+  border-radius: 10px;
   
 }
 
@@ -415,8 +390,5 @@ h1 {
   display: inline-block;
 }
 
-img {
-  margin-left: 5px;
-  border-radius: 10px;
-}
+
 </style>

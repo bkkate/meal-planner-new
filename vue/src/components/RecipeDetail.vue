@@ -285,6 +285,8 @@ export default {
     grid-area: time;
   }
 }
+
+
 /* @media (max-width: 1024px) {
   .recipe-detail {
     background-color: #ebf2ef;

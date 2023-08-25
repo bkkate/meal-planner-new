@@ -183,8 +183,7 @@ export default {
   /* width:100vh; */
   padding: 2.5rem;
   font-family: "Dosis", monospace, sans-serif;
-  /* background-color: #f8e9b8; */
-  background: url(../assets/lemon-both-sides.jpg) center no-repeat;
+  /* background: url(../assets/lemon-both-sides.jpg) center no-repeat; */
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

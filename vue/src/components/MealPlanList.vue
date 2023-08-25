@@ -29,7 +29,8 @@
           <br />
           <div class="buttons">
             <!-- <button @click.prevent="showDetailTable(mealplan[0].meal_plan_id)"> View Details</button> -->
-            <button>
+           <i class='bx bxs-trash'></i>
+           <button>
               <router-link
                 :to="{
                   name: 'modify-meal-plan',
@@ -272,7 +273,7 @@ export default {
 <style scoped>
 @import url(https://fonts.googleapis.com/css2?family=Dosis&family=Playfair+Display&family=Raleway:wght@300;400&display=swap);
 .mealPlans {
-  font-family: "Raleway", "Dosis", sans-serif;
+  font-family:  "Raleway", "Dosis", sans-serif;
 }
 
 h1 {
