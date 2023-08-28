@@ -1,84 +1,61 @@
 <template>
   <div class="background">
-    <div class="wrapper">
-      <div class="weekly-plan-name">
-        <!-- <label for="meal-plan-name"> <h2>Meal Plan Name:</h2> </label> -->
-        <div class="title-add-section" v-if="planNameAdded">
-          <input
-            type="text"
-            class="meal-plan-name"
-            id="meal-plan-name"
-            v-model="mealPlanName"
-            @keyup.enter="addName"
-          />
-          <button class="addBtn" @click.prevent="addName">Add</button>
-        </div>
-
-        <div class="addedTitleDisplay" v-if="!planNameAdded">
-          <h1 class="meal-name" @click="modifyName">{{ mealPlanName }}</h1>
-          <!-- <button class="modifyBtn" @click.prevent="modifyName">Edit Name</button> -->
-          <img
-            src="../assets/pencil-edit-icon.jpg"
-            @click="modifyName"
-            height="30"
-            width="30"
-          />
-        </div>
+    <div class="addedTitleDisplay" v-if="!planNameAdded">
+      <h1 class="meal-name" @click="modifyName">{{ mealPlanName }}</h1>
+      <!-- <img
+        src="../assets/pencil-edit-icon.jpg"
+        @click="modifyName"
+        class="pencil-icon"
+        height="30"
+        width="30"
+      /> -->
+    </div>
+    <div class="weekly-plan-name">
+      <div class="title-add-section" v-if="planNameAdded">
+        <input
+          type="text"
+          class="meal-plan-name"
+          id="meal-plan-name"
+          v-model="mealPlanName"
+          @keyup.enter="addName"
+        />
+        <!-- <button class="addBtn" @click.prevent="addName">Add</button> -->
       </div>
-
-<div class="addNewMealBtn">
-  <button class="addToPlanBtn" @click.prevent="addNewMeal">
-         Add New Meal
+    </div>
+    <div class="wrapper">
+      <div class="buttons">
+        <button
+          class="addToPlanBtn"
+          :class="{ special: btnHighlight }"
+          @click.prevent="addNewMeal"
+        >
+          Add New Meal
         </button>
-</div>
-   
-
-      <table>
-        <thead>
-          <tr class="row header-row">
-            <div class="planContainer">
-              <th class="tdata">
-              </th>
-              <th class="tdata">Date</th>
-              <th class="tdata">Meal</th>
-              <th class="tdata">Recipe</th>
-            </div>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="row" v-for="(plan, index) in displayModifiedCombos" v-bind:key="index">
-            <div class="planContainer">
-              <td class="tdata placehold" style="color: #ecf2f0">
-                <img
-                  src="../assets/pencil-edit-icon.jpg"
-                  height="30"
-                  width="30"
-                  @click="editAndDisplay(index)"
-                />
-              </td>
-              <td class="tdata">{{ plan.for_date }}</td>
-              <td class="tdata">{{ convertMealTypeToWord(plan.meal_type) }}</td>
-              <td class="tdata">{{ getRecipeName(plan.recipe_id) }}</td>
-            </div>
-          </tr>
-        </tbody>
-      </table>
-
-      <form class="mealForm" v-show="showOptions">
+        <button class="addToPlanBtn" @click.prevent="addMealToDB">
+          Save All Changes
+        </button>
+      </div>
+      <form class="mealForm" v-show="showAddOptions">
         <div class="options">
           <div class="dateOptions">
-            <label for="date">Select Date: </label>
+            <label for="date">Select Date </label>
             <input
               type="date"
               id="date"
               name="date"
               v-model="mealPlan.for_date"
+              class="form-control"
             />
           </div>
 
           <div class="mealTypeOptions">
             <label for="mealType">Select Meal: </label>
-            <select name="mealType" id="mealType" v-model="mealPlan.meal_type">
+            <select
+              name="mealType"
+              id="mealType"
+              v-model="mealPlan.meal_type"
+              class="form-control"
+            >
               <option value="1">Breakfast</option>
               <option value="2">Lunch</option>
               <option value="3">Dinner</option>
@@ -89,7 +66,12 @@
 
           <div class="recipesOptions">
             <label for="recipe">Select Recipe: </label>
-            <select name="recipe" id="recipe" v-model="currentSelectedRecipe">
+            <select
+              name="recipe"
+              id="recipe"
+              v-model="currentSelectedRecipe"
+              class="form-control"
+            >
               <option
                 v-for="recipe in this.$store.state.recipes"
                 v-bind:key="recipe.recipe_id"
@@ -99,23 +81,118 @@
               </option>
             </select>
           </div>
-           <button class="addToPlanBtn editBtn" v-if="!addingNewMeal" @click.prevent="addChangeToPlan(currentIdx)">
+          <button
+            class="form-btn editBtn"
+            v-if="!addingNewMeal"
+            @click.prevent="addChangeToPlan(currentIdx)"
+          >
             Edit
           </button>
-          <button class="addToPlanBtn editBtn" v-else @click.prevent="addNewMealToPlan">
+          <button
+            class="form-btn editBtn"
+            v-else
+            @click.prevent="addNewMealToPlan"
+          >
             Add
           </button>
         </div>
-        <div class="btn">
-         
-        </div>
       </form>
 
-      <div class="btn">
-        <button class="addToPlanBtn" @click.prevent="addMealToDB">
-          Save All Changes
-        </button>
-      </div>
+      <section>
+        <div class="body">
+          <div
+            class="row"
+            v-for="(plan, index) in displayModifiedCombos"
+            v-bind:key="index"
+          >
+            <div class="planContainer">
+              <div class="data-container">
+                <div class="tdata placehold column" style="color: #ecf2f0">
+                  <img
+                    src="../assets/pencil-edit-icon.jpg"
+                    height="30"
+                    width="30"
+                    class="pencil-icon"
+                    @click="editAndDisplay(index)"
+                  />
+                  <!-- <i class='bx bx-x x-icon'></i> -->
+                </div>
+                <div class="date-meal column">
+                  <div class="tdata">{{ plan.for_date }}</div>
+                  <div class="tdata">
+                    {{ convertMealTypeToWord(plan.meal_type) }}
+                  </div>
+                </div>
+                <div class="recipe-name column">
+                  {{ getRecipeName(plan.recipe_id) }}
+                </div>
+              </div>
+              <form class="mealForm edit-form" v-if="editRow === index">
+                <div class="options">
+                  <div class="dateOptions">
+                    <label for="date">Select Date: </label>
+                    <input
+                      type="date"
+                      id="date"
+                      name="date"
+                      v-model="mealPlan.for_date"
+                      class="form-control"
+                    />
+                  </div>
+
+                  <div class="mealTypeOptions">
+                    <label for="mealType">Select Meal: </label>
+                    <select
+                      name="mealType"
+                      id="mealType"
+                      v-model="mealPlan.meal_type"
+                      class="form-control"
+                    >
+                      <option value="1">Breakfast</option>
+                      <option value="2">Lunch</option>
+                      <option value="3">Dinner</option>
+                      <option value="4">Snack</option>
+                      <option value="5">Appetizer</option>
+                    </select>
+                  </div>
+
+                  <div class="recipesOptions">
+                    <label for="recipe">Select Recipe: </label>
+                    <select
+                      name="recipe"
+                      id="recipe"
+                      v-model="currentSelectedRecipe"
+                      class="form-control"
+                    >
+                      <option
+                        v-for="recipe in recipes"
+                        v-bind:key="recipe.recipe_id"
+                        :value="recipe.recipe_name"
+                      >
+                        {{ recipe.recipe_name }}
+                      </option>
+                    </select>
+                  </div>
+                  <button
+                    class="form-btn editBtn"
+                    v-if="!addingNewMeal"
+                    @click.prevent="addChangeToPlan(currentIdx)"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    class="form-btn editBtn"
+                    v-else
+                    @click.prevent="addNewMealToPlan"
+                  >
+                    Add
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   </div>
 </template>
@@ -128,14 +205,17 @@ export default {
   name: "modify-meal-plan",
   data() {
     return {
+      recipes: [],
+      btnHighlight: false,
       planNameAdded: false,
-      showOptions: false,
+      showAddOptions: false,
+      editRow: -1,
       mealPlanName: "",
       currentSelectedRecipe: "",
       currentIdx: 0,
       listOfPlans: [],
-      listOfNewlyAddedPlans:[],
-      listOfTotalPlans:[],
+      listOfNewlyAddedPlans: [],
+      listOfTotalPlans: [],
       addingNewMeal: false,
       mealPlan: {
         plan_name: "",
@@ -156,28 +236,28 @@ export default {
       return recipeObj.recipeId;
     },
     displayModifiedCombos() {
-        return this.listOfTotalPlans;
-    }
+      return this.listOfTotalPlans;
+    },
   },
 
   created() {
     recipeService.getRecipes(this.$store.state.user.id).then((response) => {
       this.$store.commit("SET_RECIPE", response.data.sort());
+      this.recipes = response.data.sort();
     });
 
     this.getListOfMealPlans();
-   
   },
 
   methods: {
     getListOfMealPlans() {
-        mealPlanService
-      .getMealPlanById(this.$route.params.mealPlanId)
-      .then((response) => {
-        this.listOfPlans = response.data;
-        this.listOfTotalPlans = response.data;
-        this.mealPlanName = this.listOfPlans[0].plan_name;
-      });
+      mealPlanService
+        .getMealPlanById(this.$route.params.mealPlanId)
+        .then((response) => {
+          this.listOfPlans = response.data;
+          this.listOfTotalPlans = response.data;
+          this.mealPlanName = this.listOfPlans[0].plan_name;
+        });
     },
     clear() {
       this.mealPlan = {
@@ -216,132 +296,167 @@ export default {
         return "Appetizer";
       }
     },
-  
+
     addMealToDB() {
       this.listOfPlans.forEach((plan) => {
         plan.plan_name = this.mealPlanName;
-      })
+      });
 
       console.log(this.listOfPlans);
       console.log(this.listOfNewlyAddedPlans);
-      mealPlanService.updateMealPlan(this.$route.params.mealPlanId, this.listOfPlans);
-      mealPlanService.addMoreMealsToExistingPlan(this.listOfNewlyAddedPlans, this.$store.state.user.id);
+      mealPlanService.updateMealPlan(
+        this.$route.params.mealPlanId,
+        this.listOfPlans
+      );
+      mealPlanService.addMoreMealsToExistingPlan(
+        this.listOfNewlyAddedPlans,
+        this.$store.state.user.id
+      );
       this.clear();
-      this.$router.push({name: 'mealplans', params: {userId: this.$store.state.user.id }});
-
- 
+      this.$router.push({
+        name: "mealplans",
+        params: { userId: this.$store.state.user.id },
+      });
     },
 
     editAndDisplay(index) {
       console.log(index);
-        this.currentIdx = index;
-        this.showOptions = !this.showOptions;
-        
+      this.currentIdx = index;
+      this.editRow = index;
     },
 
     addNewMeal() {
-        this.showOptions = !this.showOptions;
-        this.addingNewMeal = !this.addingNewMeal;
+      this.showAddOptions = !this.showAddOptions;
+      this.addingNewMeal = !this.addingNewMeal;
+
+      this.btnHighlight = !this.btnHighlight;
     },
 
     addNewMealToPlan() {
-        this.mealPlan.plan_name = this.mealPlanName;
-        this.mealPlan.recipe_id = this.currentRecipeId;
-        this.mealPlan.meal_type = parseInt(this.mealPlan.meal_type);
-        this.mealPlan.meal_plan_id = this.$route.params.mealPlanId;
-        this.listOfNewlyAddedPlans.push(this.mealPlan);
-        this.listOfTotalPlans.push(this.mealPlan);
-        this.clear();
-         this.addingNewMeal = !this.addingNewMeal;
-         this.showOptions = !this.showOptions;
+      this.mealPlan.plan_name = this.mealPlanName;
+      this.mealPlan.recipe_id = this.currentRecipeId;
+      this.mealPlan.meal_type = parseInt(this.mealPlan.meal_type);
+      this.mealPlan.meal_plan_id = this.$route.params.mealPlanId;
+      this.listOfNewlyAddedPlans.push(this.mealPlan);
+      this.listOfTotalPlans.push(this.mealPlan);
+      this.clear();
+      this.addingNewMeal = !this.addingNewMeal;
+      this.showOptions = !this.showOptions;
     },
 
     addChangeToPlan(index) {
-        this.listOfPlans[index].for_date = this.mealPlan.for_date;
-        this.listOfPlans[index].meal_type = parseInt(this.mealPlan.meal_type);
-        this.listOfPlans[index].recipe_id = this.currentRecipeId;
-        this.showOptions = !this.showOptions;
-        this.clear();
-    }
+      this.listOfPlans[index].for_date = this.mealPlan.for_date;
+      this.listOfPlans[index].meal_type = parseInt(this.mealPlan.meal_type);
+      this.listOfPlans[index].recipe_id = this.currentRecipeId;
+      this.showOptions = !this.showOptions;
+      this.clear();
+      this.editRow=-1;
+    },
   },
 };
 </script>
 
 <style scoped>
 .background {
-  text-align: center;
-  font-family:"Raleway","Dosis", monospace, sans-serif;
-  background: url("../assets/dumplings-right.jpg");
+  font-family: "Raleway", "Dosis", monospace, sans-serif;
+  background: url("../assets/dumplings-left.jpeg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  display: flex;
+  justify-content: center;
+  min-height: 80vh;
   /* background-color: #FFFACD; */
 }
 .wrapper {
-  width:60%;
-  border-radius: 25px;
+  padding: 60px 0 60px 15px;
+  margin: 0;
 }
-.placehold {
-  color: black;
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding-bottom: 50px;
 }
-.addBtn,
-.modifyBtn,
-.addToPlanBtn {
-  margin: 0 10px;
-  background-color: #a6f5ac;
-  /* color: white; */
-  font-weight: bold;
-  font-family: system-ui, sans-serif;
-  border-radius: 3px;
-  border: 1px solid #adc4d4;
-  padding: 0.3em;
+
+/* .addBtn,
+.modifyBtn {
+
 }
 
 .addBtn:hover,
-.modifyBtn:hover,
-.addToPlanBtn {
+.modifyBtn:hover{
   font-weight: 2em;
   cursor: pointer;
-}
+} */
 
 .addToPlanBtn {
-  position: relative;
-  background-color: #ffffff;
-  border: 2px solid #422800;
-  border-radius: 30px;
-  box-shadow: #422800 4px 4px 0 0;
-  color: #422800;
+  cursor: pointer;
+  font: "Raleway", "Dosis", sans-serif;
+  border: 1px solid rgba(8, 9, 9, 0.15);
+  appearance: none;
+  background: #ededea;
+  border: 1px solid rgba(8, 9, 9, 0.15);
+  border-radius: 300px;
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0,
+    rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+  color: #000000;
   cursor: pointer;
   display: inline-block;
-  font-weight: 600;
   font-size: 15px;
-  padding: 0 3px;
-  line-height: 30px;
-  text-align: center;
-  text-decoration: none;
-  font-family: "Dosis", monospace, sans-serif;
-
-  /* left: 50%; */
-  /* position: absolute; */
-  /* margin-left: 43%; */
+  font-weight: 500;
+  line-height: 34px;
+  padding: 6px 15px;
 }
 
-.editBtn{
- min-width: 10%;
- height: 30px;
+.addToPlanBtn:hover {
+  background-color: #fbfbf9;
 }
 
+.special {
+  background-color: rgb(247, 242, 209);
+  color: rgb(32, 31, 33);
+}
+
+.special:hover {
+  background-color: rgb(247, 242, 209);
+  color: rgb(32, 31, 33);
+}
+
+/* 
 .addNewMealBtn {
   margin-top: 1em;
+} */
+
+h1.meal-name {
+  display: inline-block;
+  margin-right: auto;
+}
+.addedTitleDisplay {
+  padding: 180px 40px 180px 0px;
 }
 
+input.meal-plan-name {
+  width: 200px;
+  height: 50px;
+  border: 2px solid var(--grey-light-ui-200, #eeedf2);
+  font-family: "Raleway", "Dosis", sans-serif;
+  font-size: 15px;
+  border-radius: 360px;
+  margin: 0 40px;
+  padding-left: 30px;
+}
+
+input.meal-plan-name:focus {
+  outline: none;
+}
 
 .weekly-plan-name {
   text-align: center;
-  padding: 30px;
+  padding: 180px 0;
   /* background-color: rgba(255, 239, 14, 0.411); */
   border-radius: 25px 25px 0 0;
-
 }
 
 .options {
@@ -352,43 +467,97 @@ export default {
   margin: 0 auto;
 }
 
+.planContainer .data-container {
+  display: flex;
+  /* justify-content: center; */
+  text-align: center;
+  align-items: center;
+  padding: 15px;
+  gap: 80px;
+}
+.column {
+  max-width: 200px;
+}
 
-table {
+.tdata {
+  padding: 5px 0;
+}
+
+section {
   border-radius: 25px;
   text-align: center;
   margin: 0 auto;
-  width:100%;
+  width: 100%;
 }
 
-
-.tdata {
-  padding: 1.2em;
-  margin: 1.5em;
+.tdata.placehold {
+ display:flex;
+ justify-content: flex-start;
+ gap:10px;
 }
 
+div.row {
+  display: flex;
+  flex-direction: column;
+}
 /* .tdata:nth-child(even) {
   background-color: #dfe9e6;
 } */
 
-
 .planContainer {
-  display: flex;
-  justify-content: space-evenly;
-  border: 1px solid rgb(226, 224, 224);
-  border-radius: 10px;
-  
+  border-top: 1px solid rgb(215, 195, 163);
+}
+
+.date-meal {
+  padding-left: 15px;
 }
 
 .dateOptions,
 .mealTypeOptions,
 .recipesOptions {
   display: inline-block;
-  margin: 30px;
 }
 
-h1 {
+img.pencil-icon {
+  border-radius: 150px;
+  margin-left: 15px;
+}
+
+.form-control {
+  border: 1px solid #ccc;
+  display: block;
+  height: 40px;
+  margin: 0 15px 25px;
+  border-radius: 20px;
+  background: #f8f8f8;
+  max-width: 130px;
+  text-align: center;
+}
+
+.form-btn {
+  background: transparent;
+  border: 1px solid #bebbbb;
+  border-radius: 8px;
+  color: #222222;
+  cursor: pointer;
   display: inline-block;
+  font-size: 15px;
+  line-height: 10px;
+  outline: none;
+  padding: 13px 23px;
+  position: relative;
+  text-align: center;
+  margin-bottom: 10px;
 }
+/* 
+.x-icon{
+  color:red;
+ 
+  border-radius: 50px;
+  font-size: 30px;
 
-
+} */
+.edit-form{
+  padding: 20px 5px;
+}
 </style>
