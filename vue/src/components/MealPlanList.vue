@@ -13,9 +13,13 @@
       </div>
     </section>
     <section class="filters">
-      <div class="filter-btn current-btn" @click="handleFilter">current</div>
-      <div class="filter-btn previous-btn" @click="handleFilter">previous</div>
-      <div class="filter-btn future-btn" @click="handleFilter">future</div>
+      <div class="filter-btn" id="current-btn" @click="handleFilter">
+        current
+      </div>
+      <div class="filter-btn" id="previous-btn" @click="handleFilter">
+        previous
+      </div>
+      <div class="filter-btn" id="future-btn" @click="handleFilter">future</div>
     </section>
     <section class="all-plans">
       <div class="current">
@@ -273,15 +277,29 @@ export default {
       }
     },
     handleFilter(event) {
+      // button styling
       document.querySelector(".special")?.classList.remove("special");
       event.target.classList.add("special");
 
-      if (event.target.classList.includes("current-btn")) {
-        //
-      } else if (event.target.classList.includes("future-btn")) {
-        //
-      } else {
-        //
+      // scrolling to corresponding section
+      switch (event.target.id) {
+        case "current-btn":
+          document
+            .querySelector(".current")
+            .scrollIntoView({ behavior: "smooth" });
+          break;
+
+        case "future-btn":
+          document
+            .querySelector(".future")
+            .scrollIntoView({ behavior: "smooth" });
+          break;
+
+        case "previous-btn":
+          document
+            .querySelector(".previous")
+            .scrollIntoView({ behavior: "smooth" });
+          break;
       }
     },
   },
