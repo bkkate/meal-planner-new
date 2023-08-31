@@ -12,7 +12,7 @@
     <div class="bg screen2">
       <div class="mission-container">
         <img src="../assets/screenshots/sample-screenshot.png" alt="recipe" />
-        <div>
+        <div class="missions">
           <h1 class="mission">our mission<span>_</span></h1>
           <div class="mission-one mission-statement">
             We are a team of passionate food lovers, nutrition experts, and tech
@@ -55,7 +55,8 @@
 
           <!-- <i class='bx bxs-customize'></i> -->
           <p class="specialPara">
-            Our platform allows you to personalize your meal plans based on your
+             <span style="font-weight: bold; text-align: center"
+              >Personalize your meal plans </span> based on your
             favorite foods, allergies, and nutritional goals.
           </p>
         </div>
@@ -64,15 +65,12 @@
           <div class="icon"><i class="bx bx-layer-plus"></i></div>
 
           <div class="section-title">Features</div>
-          <!-- <i class='bx bx-restaurant'></i> -->
-
-          <!-- <i class='bx bxs-layer-plus'></i> -->
-
           <p class="specialPara">
-            Save all your recipes & created meal plans for later use.
+            Save all your recipes &  meal plans for later use.
             <br />
-        Add, modify, delete any recipes or meal plans at any
-            time. Have tailored meal plans organized in one space!
+        Add, modify, delete freely at any
+            time. Have tailored meal plans  <span style="font-weight: bold; text-align: center"
+              >organized in one space!</span>
           </p>
         </div>
       </section>
@@ -229,6 +227,7 @@ export default {
   padding: 80px 120px 50px 45px;
 }
 
+
 .screen2 {
   background-color: #e6f3e6;
 }
@@ -256,6 +255,10 @@ export default {
 .screen2 .mission-statement {
   font-size: 18px;
   padding-top: 15px;
+}
+
+.missions{
+  padding-right:50px;
 }
 .screen3 {
   background-image: url(../assets/yellow-gradient.jpg);

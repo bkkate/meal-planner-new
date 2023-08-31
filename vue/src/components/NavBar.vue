@@ -97,7 +97,7 @@ export default {};
   /* background-color: rgb(246, 249, 242); */
     background-color: #fff;
   width: 100%;
-  height: 80px;
+  height: 60px;
   padding: 5px 0;
   /* position: fixed; */
       border-bottom: 1px solid rgb(224, 231, 223);
@@ -105,14 +105,15 @@ export default {};
 }
 
 .logoImg {
-  height: 80px;
-  padding: 10px;
-  margin: 2px;
+  height: 68px;
+  padding: 5px 10px;
+
 }
 
 .logo {
   height: 100%;
   width: auto;
+   border-radius: 10px;
 }
 
 .nav-links {

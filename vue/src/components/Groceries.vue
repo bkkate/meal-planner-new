@@ -1,43 +1,64 @@
 <template>
   <div class="list">
+    <h2 class="list-title">Grocery</h2>
     <div class="list-container">
-      <h2 class="list-title">Grocery List</h2>
-      <label class="input-label" for="itemName">Item Name: </label>
-      <input type="text" id="itemName" v-model="itemName" />
-      <label class="input-label" for="amount">Amount:</label>
-      <input type="text" id="amount" v-model="amount" />
-      <button @click="addSelectedIngredients">Add to Grocery List</button>
-      <div class="items-box">
-        <div v-if="isListEmpty">
-          <div
-            v-for="(list, index) in updatedFoodList"
-            :key="index"
-            class="list-items"
-          >
-            <input
-              type="checkbox"
-              v-model="selectedIngredients"
-              :value="list"
-            />
-            <label v-if="list.ingredient_name != undefined" class="item-name"
-              >{{ list.ingredient_name }}: {{ list.quantity }}
-            </label>
-            <label v-else class="item-name"
-              >{{ list.non_food_option }}: {{ list.quantity }}</label
-            >
+      <div class="inputs-and-button">
+        <div class="inputs">
+          <div>
+            <label class="input-label" for="itemName">Item Name: </label>
+            <input class="item" type="text" id="itemName" v-model="itemName" />
           </div>
+          <div>
+            <label class="input-label" for="amount">Amount:</label>
+            <input class="amount" type="text" id="amount" v-model="amount" />
+          </div>
+          <!-- <button class="add-grocery" @click="addSelectedIngredients">
+          Add to List
+        </button> -->
         </div>
-        <div v-else>
-          <p class="emptyMsg">
-            You currently don't have any groceries in your list.
-          </p>
+        <button class="add-grocery" @click="addSelectedIngredients">
+          Add to List
+        </button>
+      </div>
+
+      <div class="items-container">
+        <div class="inner-box">
+          <div v-if="isListEmpty">
+            <div
+              v-for="(list, index) in updatedFoodList"
+              :key="index"
+              class="list-items"
+            >
+              <input
+                type="checkbox"
+                v-model="selectedIngredients"
+                :value="list"
+              />
+              <label v-if="list.ingredient_name != undefined" class="item-name"
+                >{{ list.ingredient_name }}: {{ list.quantity }}
+              </label>
+              <label v-else class="item-name"
+                >{{ list.non_food_option }}: {{ list.quantity }}</label
+              >
+            </div>
+          </div>
+          <div v-else>
+            <p class="emptyMsg">
+              You currently don't have any groceries on your list.
+            </p>
+          </div>
         </div>
       </div>
       <div class="delete-btns">
-        <button @click="deleteSelected">Delete selected ingredients</button>
-        <button @click="deleteAll">Delete All</button>
-        <button v-on:click="handlePrint()">Print Grocery List</button>
+        <button class="btn" @click="deleteSelected">Delete Selected</button>
+        <button class="btn" @click="deleteAll">Delete All</button>
       </div>
+      <div class="print-btn">
+        <button class="btn" v-on:click="handlePrint()">
+        Print Grocery List
+      </button>
+      </div>
+      
     </div>
   </div>
 </template>
@@ -175,67 +196,147 @@ export default {
 };
 </script>
 <style scoped>
+@import url(https://fonts.googleapis.com/css2?family=Dosis&family=Overpass&family=Playfair+Display&family=Raleway:wght@300;400&display=swap);
+
 .list {
-  font-family: "Dosis", monospace, sans-serif;
-  background: url(../assets/cropped-orange.jpg) no-repeat center center fixed;
+  font-family: "Overpass", "Raleway", "Dosis", sans-serif;
+  font-size: 1.1em;
+  padding-bottom:50px;
+  filter: brightness(98%);
+
+  background: url(../assets/groceries-white.jpeg) no-repeat center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  padding-bottom: 50px;
-  opacity: 0.9;
-  font-size: 1.1em;
-  padding-left: 5%;
-  /* filter: brightness(95%); */
+  /* background: rgb(234, 238, 230); */
+  min-height: 80vh;
 }
+
 h2 {
   text-align: center;
   font-size: 2em;
+  padding: 35px;
 }
 .list-items {
   margin: 5px;
   text-align: center;
 }
-.items-box {
-  background-color: aliceblue;
-  max-width: 45%;
+.items-container {
   border-radius: 10px;
-  opacity: 0.95;
   padding-top: 10px;
   padding-bottom: 10px;
-  margin: 25px;
+  /* margin-left: auto;
+  width: 65%; */
 }
-button:hover {
-  transform: scale(1.05);
+.list-container{
+  margin-left:auto;
+  width:75%;
 }
-button:focus {
-  outline: 0 solid transparent;
+.inner-box {
+  /* border-top: 1px solid rgb(179, 177, 158); */
+  border-bottom: 1px solid rgb(179, 177, 158);
+  margin: 0 50px;
+  padding: 12px 0 12px 0;
 }
-button {
-  margin-left: 15px;
-  background-color: #cdeccd;
-  border: 2px solid #422800;
-  border-radius: 10px;
-  box-shadow: #422800 4px 4px 0 0;
-  color: #422800;
+
+div.inputs-and-button{
+  margin-left:auto;
+  text-align: center;
+}
+
+.inputs {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  height: 50px;
+}
+
+input.item,
+input.amount {
+  height: 40px;
+  border: 2px solid var(--grey-light-ui-200, #eeedf2);
+  font-size: 14px;
+  border-radius: 360px;
+  margin: 0 40px;
+  padding-left: 15px;
+}
+
+input.item {
+  width: 130px;
+}
+
+input.amount {
+  width: 80px;
+}
+
+button.add-grocery {
+  /* background: transparent;
+  border: 1px solid #bebbbb;
+  border-radius: 8px;
+  color: #222222;
   cursor: pointer;
   display: inline-block;
-  font-weight: 600;
   font-size: 15px;
-  padding: 0 3px;
-  line-height: 30px;
+  line-height: 10px;
+  outline: none;
+  padding: 0 5px;
   text-align: center;
-  text-decoration: none;
-  font-family: "Dosis", monospace, sans-serif;
+  margin: 15px 15px 0px 10px; */
+
+  cursor: pointer;
+  font: "Raleway", "Dosis", sans-serif;
+  appearance: none;
+  background: #5e5e5b;
+  border: 1px solid rgba(8, 9, 9, 0.15);
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0,
+    rgba(217, 215, 215, 0.25) 0 1px 0 inset;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 30px;
+  padding: 6px 15px;
+  margin: 20px 0 10px 25px;
+}
+
+button.btn {
+  cursor: pointer;
+  font: "Raleway", "Dosis", sans-serif;
+  border: 1px solid rgba(8, 9, 9, 0.15);
+  appearance: none;
+  background: #ededea;
+  border: 1px solid rgba(8, 9, 9, 0.15);
+  border-radius: 300px;
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0,
+    rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+  color: #000000;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 34px;
+  padding: 6px 15px;
 }
 .delete-btns {
-  max-width: 50%;
   text-align: center;
 }
+
+.delete-btns .btn {
+  margin: 5px;
+}
+
+.print-btn {
+  text-align:center;
+  margin:10px;
+}
+
 .emptyMsg {
   text-align: center;
   font-size: 1.5em;
 }
+
 #itemName,
 #amount {
   margin: 10px;

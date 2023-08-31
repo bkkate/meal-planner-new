@@ -325,7 +325,7 @@ h1 {
 h2.plan-time {
   /* color: rgb(163, 126, 45); */
   color: rgb(157, 115, 32);
-  margin: 10px 85px 15px 85px;
+  /* margin: 10px 85px 15px 85px; */
   /* border-bottom: 1px solid rgb(223, 223, 229); */
   text-align: center;
   font-weight: 300;
@@ -339,21 +339,23 @@ h2.plan-time {
 }
 
 .current .plans {
-  background: #f5f5f5;
-  background: #f4f0ec;
+  /* background: #f5f5f5;
+  background: #f4f0ec; */
   border-top: 1px solid rgb(179, 178, 177);
 }
 
 .future .plans {
-  background: #f8efdb;
+  /* background: #f8efdb; */
   border-top: 1px solid rgb(179, 178, 177);
 }
 
 .previous .plans {
   /* background: #ebe7e2; */
-  background: #ffffe0;
+  /* background: #ffffe0; */
   border-top: 1px solid rgb(179, 178, 177);
 }
+
+
 
 h2.plan-name {
   font-weight: 300;
@@ -374,6 +376,8 @@ section.all-plans {
   padding-bottom: 80px;
   font-family: "Poppins", "Raleway", "Dosis", sans-serif;
   font-weight: 200;
+
+
 }
 
 .filter-btn,

@@ -380,17 +380,6 @@ export default {
   padding-bottom: 50px;
 }
 
-/* .addBtn,
-.modifyBtn {
-
-}
-
-.addBtn:hover,
-.modifyBtn:hover{
-  font-weight: 2em;
-  cursor: pointer;
-} */
-
 .addToPlanBtn {
   cursor: pointer;
   font: "Raleway", "Dosis", sans-serif;
