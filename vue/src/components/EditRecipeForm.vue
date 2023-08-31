@@ -1,7 +1,7 @@
 <template>
     <div>
-        <button v-on:click="toggleShowForm()" class="edit-recipe-btn">Edit Recipe</button>
-        <form action="#" v-on:submit.prevent="" class="recipe-form" v-show="showForm">
+        <!-- <button v-on:click="toggleShowForm()" class="edit-recipe-btn">Edit Recipe</button> -->
+        <form action="#" v-on:submit.prevent="" class="recipe-form" >
 
 
             <section>
@@ -114,7 +114,12 @@ export default {
         ingredients: [],
         };
     },
+
  methods: {
+    created(){
+this.recipe = this.recipeFrom;
+        this.ingredients = this.listIngredients;
+    },
     toggleShowForm() {
         this.showForm = !this.showForm;
         this.recipe = this.recipeFrom;
@@ -173,13 +178,14 @@ export default {
 <style scoped>
 form {
     margin-top: 15px;
-    background-color: rgb(230, 245, 215);
+    background:transparent;
     padding-left: 20px;
     padding-top: 20px;
-    border-radius: 5%;
+    border: 1px solid rgb(205, 202, 202);
+    border-radius: 5px;
 }
 .addIngredient {
-    background-color: #e2f3e2;
+    background-color: #f5f8f5;
     color: #180d04;
     margin-left: 15px;
 }

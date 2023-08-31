@@ -86,75 +86,91 @@
         alt="Back Arrow"
         @click="$router.go(-1)"
       />
-      <h2 id="recipe-name">{{ recipe.recipe_name }}</h2>
-    </section>
-
-    <section class="edit-recipe">
-      <div id="edit-button noprint">
-        <edit-recipe-form
-          class="noprint"
-          v-bind:recipe-from="recipe"
-          v-bind:list-ingredients="ingredients"
-        />
+      <div class="recipe-name">
+        <h2>{{ recipe.recipe_name }}</h2>
       </div>
     </section>
+    <div class="edit-button-box">
+      <button v-on:click="showForm = !showForm" class="edit-recipe-btn">
+        Edit Recipe
+      </button>
+    </div>
 
-    <section class="recipe-container">
-      <div class="left-container">
-        <div id="direction-section">
-          <h3>Directions</h3>
-          <p align="justify" class="directions">{{ recipe.directions }}</p>
-        </div>
+    <div class="edit-recipe">
+      <edit-recipe-form
+        class="noprint"
+        v-bind:recipe-from="recipe"
+        v-bind:list-ingredients="ingredients"
+        v-if="showForm"
+      />
+    </div>
+    <section v-if="!showForm">
+      <div class="recipe-container">
+        <div class="left-container">
+          <div class="details">
+            <div id="direction-section" class="section">
+              <h3>Directions</h3>
+              <p align="justify" class="directions">{{ recipe.directions }}</p>
+            </div>
 
-        <div id="ingredients-section">
-          <h3>Ingredients</h3>
+            <div class="ingredients-section section">
+              <div >
+                <h3>Ingredients</h3>
+                <div
+                  v-for="(ingredient, index) in ingredients"
+                  v-bind:key="index"
+                  class="ingredient-list"
+                >
+                  <input
+                    type="checkbox"
+                    v-bind:value="index"
+                    id="list-item"
+                    v-model="idsToAdd"
+                    v-on:click="addIdToSomething(index)"
+                  />
 
-          <div
-            v-for="(ingredient, index) in ingredients"
-            v-bind:key="index"
-            class="ingredient-list"
-          >
-            <input
-              type="checkbox"
-              v-bind:value="index"
-              id="list-item"
-              v-model="idsToAdd"
-              v-on:click="addIdToSomething(index)"
-            />
+                  <div class="ingredient">
+                    <span class="ingredient-name"
+                      >{{ ingredient.ingredient_name }}:</span
+                    >
+                    {{ ingredient.amount }}
+                  </div>
+                </div>
+              </div>
 
-            <h4 id="ingredient-name">{{ ingredient.ingredient_name }}:</h4>
-            <p id="ingredient-amount">{{ ingredient.amount }}</p>
+              <button
+                class="addGroceries noprint btn"
+                type="submit"
+                v-on:click.prevent="sendToGroceryDB()"
+              >
+                Add to Grocery List
+              </button>
+            </div>
+
+            <div class="tag section">
+              <h3 class="tag">Tags</h3>
+              <p class="tag">{{ recipe.tags }}</p>
+            </div>
+            <div class="time section">
+              <h3 class="time">Prep Time</h3>
+              <p class="time">{{ recipe.prep_time }} min</p>
+            </div>
           </div>
-          <button
-            class="addGroceries noprint"
-            type="submit"
-            v-on:click.prevent="sendToGroceryDB()"
-          >
-            Add To Grocery List
-          </button>
         </div>
-
-        <div class="tag">
-          <h5 class="tag">Tags:</h5>
-          <p class="tag">{{ recipe.tags }}</p>
+        <div class="right-container">
+          <img
+            :src="getRecipeId(recipe.recipeId)"
+            alt="first imag"
+            class="foodPic"
+          />
         </div>
-        <br />
-        <div class="time">
-          <h5 class="time">Prep Time:</h5>
-          <p class="time">{{ recipe.prep_time }} min</p>
-        </div>
-        <br />
+      </div>
+      <div class="print-btn-box">
         <button v-on:click="handlePrint()" class="print-btn noprint">
           Print Recipe
         </button>
       </div>
-      <div class="right-container"><img
-        :src="getRecipeId(recipe.recipeId)"
-        alt="first imag"
-        class="foodPic"
-      /></div>
     </section>
-
   </div>
 </template>
 
@@ -241,6 +257,145 @@ export default {
 </script>
 
 <style scoped>
+@import url(https://fonts.googleapis.com/css2?family=Dosis&family=Overpass&family=Playfair+Display&family=Raleway:wght@300;400&display=swap);
+
+div.recipe-detail {
+  font-family: "Overpass", "Raleway", "Dosis", sans-serif;
+  padding: 35px;
+  background: rgb(252, 250, 241);
+  min-height: 85vh;
+}
+
+div.section {
+  margin-bottom: 20px;
+}
+
+.back-arrow {
+  width: 30px;
+}
+
+div.recipe-name {
+  display: inline-block;
+  margin: 0 auto;
+}
+h2 {
+  font-size: 1.8em;
+  color: black;
+  text-transform: uppercase;
+  width: 85vw;
+  text-align: center;
+}
+
+h3 {
+  color: rgb(100, 81, 28);
+  padding-bottom: 8px;
+}
+
+p, .ingredient-list{
+  padding: 2px 0 2px 5px;
+}
+
+.recipe-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+div.ingredient {
+  display: inline;
+}
+.ingredients-section {
+  display: flex;
+  align-items: center;
+  gap: 100px;
+}
+
+button.btn {
+  cursor: pointer;
+  font: "Raleway", "Dosis", sans-serif;
+  border: 1px solid rgba(8, 9, 9, 0.15);
+  /* background: #ededea; */
+  background: transparent;
+  border: 1px solid rgba(8, 9, 9, 0.15);
+  border-radius: 300px;
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0,
+    rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+  color: #000000;
+  cursor: pointer;
+  /* display: inline-block; */
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 30px;
+  padding: 6px 15px;
+  height: 40%;
+}
+
+.left-container {
+  padding: 20px 30px 0 0;
+}
+
+img.foodPic {
+  width: 400px;
+  height: 400px;
+}
+
+div.print-btn-box {
+  text-align: center;
+}
+
+button.edit-recipe-btn,
+button.print-btn {
+  cursor: pointer;
+  font: "Raleway", "Dosis", sans-serif;
+  appearance: none;
+  background: #5e5e5b;
+  border: 1px solid rgba(8, 9, 9, 0.15);
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0,
+    rgba(217, 215, 215, 0.25) 0 1px 0 inset;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 30px;
+  padding: 6px 15px;
+  margin-top: 15px;
+}
+
+@media (max-width: 890px) {
+  img.foodPic {
+    width: 300px;
+    height: 300px;
+  }
+
+  .ingredients-section {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+  }
+
+  h2 {
+    width: 80vw;
+  }
+}
+@media (max-width: 450) {
+  img.foodPic {
+    width: 150px;
+    height: 150px;
+  }
+
+  .ingredients-section {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+}
+
+@media print {
+  .noprint {
+    display: none;
+  }
+}
+/* 
 @media (max-width: 450) {
   .recipe-detail {
     display: grid;
@@ -249,8 +404,8 @@ export default {
       "name"
       "pic"
       "details";
-    /* align-items: center;
-    justify-items: center; */
+    align-items: center;
+    justify-items: center; 
   }
   #recipe-name {
     grid-area: name;
@@ -285,9 +440,7 @@ export default {
     grid-area: time;
   }
 }
-
-
-/* @media (max-width: 1024px) {
+@media (max-width: 1024px) {
   .recipe-detail {
     background-color: #ebf2ef;
     border-radius: 10px;
@@ -312,9 +465,6 @@ export default {
   }
 }
 
-.back-arrow {
-  width: 25px;
-}
 .recipe-detail {
   display: grid;
   grid-template-columns: 1fr 1fr;

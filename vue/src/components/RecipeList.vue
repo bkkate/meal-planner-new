@@ -250,6 +250,7 @@ export default {
   margin: 0px;
   background-color: #f7f7f7;
   background-color: #fff;
+  padding-bottom:50px;
 }
 
 section.top-title {

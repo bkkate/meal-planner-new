@@ -40,75 +40,42 @@
     </section>
 
     <section class="suggested">
-      <div class="recipe">
-        <router-link
-          :to="{
-            name: 'recipesId',
-            params: { recipeId: randomRecipe.recipeId },
+      <div class="recipe-container">
+        <div class="recipe-title">
+          <h2>Recipe of the Day
+          </h2>
+          <div class="recipe-title-meta">
+            suggested from your personalized recipe list
+          </div>
+          <div class="view-more"> <router-link
+            v-bind:to="{
+            name: 'recipes',
+            params: { userId: this.$store.state.user.id },
           }"
-          ><h3>{{ randomRecipe.recipe_name }}</h3></router-link
-        >
-        <div class="food-img">
-          <img
-            :src="getRecipeId(randomRecipe.recipeId)"
-            alt="first imag"
-            class="foodPic"
-          />
+            >
+            view more <i class='bx bx-right-arrow-alt'></i>
+            </router-link>
+          </div>
+          </div>
+        <div class="recipe">
+          <router-link
+            :to="{
+              name: 'recipesId',
+              params: { recipeId: randomRecipe.recipeId },
+            }"
+            ><div><div class="food-img">
+            <img
+              :src="getRecipeId(randomRecipe.recipeId)"
+              alt="first imag"
+              class="foodPic"
+            />
+          </div>
+             <h3 class="recipe-name">{{ randomRecipe.recipe_name }}</h3> </div></router-link
+          >
+          
         </div>
       </div>
     </section>
-    <!-- <div class="container2">
-      <h2>Current Plans</h2>
-      <h2>Suggested Recipe</h2>
-    </div>
-    <div class="container1">
-      <section class="current-mealplan" v-if="currentPlanPresent">
-        <div
-          class="is-current"
-          v-for="(meal, index) in mealPlans"
-          v-bind:key="index"
-        >
-          <div @click="moveToMealPlan">
-            <h2 class="current-name">{{ meal[0].plan_name }}</h2>
-            <p class="date-range">
-              <span>{{ meal[0].for_date }} </span> to
-              <span>{{ meal[meal.length - 1].for_date }}</span>
-            </p>
-          </div>
-        </div>
-        <div class="add-more">
-          <router-link :to="{ name: 'add-meal-plan' }"
-            >Add more meal plans!</router-link
-          >
-        </div>
-      </section>
-
-      <section class="no-current-mealplan" v-else>
-        <p>You don't have any current plan.</p>
-        <div class="add-more">
-          <router-link :to="{ name: 'add-meal-plan' }"
-            >Add new meal plans!</router-link
-          >
-        </div>
-      </section>
-
-      <section class="random-recipe">
-        <router-link
-          :to="{
-            name: 'recipesId',
-            params: { recipeId: randomRecipe.recipeId },
-          }"
-          ><h3>{{ randomRecipe.recipe_name }}</h3></router-link
-        >
-        <div class="food-img">
-          <img
-            :src="getRecipeId(randomRecipe.recipeId)"
-            alt="first imag"
-            class="foodPic"
-          />
-        </div>
-      </section>
-    </div> -->
   </div>
 </template>
 
@@ -239,6 +206,7 @@ section.welcome {
   cursor: pointer;
   box-shadow: 0px 2px 8px rgba(30, 10, 60, 0.06),
     0px 4px 12px rgba(30, 10, 60, 0.08);
+  background: rgb(250, 249, 246);
   transition: 0.3s;
   /* border-left: 0.5rem solid #11a56a; */
 }
@@ -256,20 +224,19 @@ h3.current-name {
 
 .add-more {
   text-align: center;
-  width:240px;
-  height:32px;
-  background: #545759;
+  width: 240px;
+  height: 32px;
+  background: #646769;
   border-color: #fff;
   text-transform: uppercase;
-  padding:15px 5px 5px 5px;
-  margin:0 auto;
+  padding: 15px 5px 5px 5px;
+  margin: 0 auto;
   margin-top: 60px;
-
 }
 
-.add-more:hover{
-  background:#cbcaca;
-  color:black;
+.add-more:hover {
+  background: #adabab;
+  color: black;
 }
 .add-more a {
   font-size: 18px;
@@ -281,136 +248,64 @@ h3.current-name {
 }
 
 section.suggested {
-  /* background: url(../assets/plum-plate.jpg) no-repeat center center; */
-  /* background-size: contain;    */
-  background-size: cover;
-  height: 95vh;
-}
-
-.recipe {
-  /* text-align:end;
-    padding-top: 130px;
-    padding-right:150px; */
-}
-
-.food-img img {
-  width: 300px;
-  height: 250px;
-  background-color: white;
-  margin: 0;
-  border-radius: 70px;
-}
-/* .home {
-  padding: 2.5rem;
-  font-family: "Dosis", monospace, sans-serif;
+  /* background: url(../assets/recipe-of-the-day.jpg) no-repeat center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover;
-  padding-bottom: 100px;
-}
-.container1 {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  border-radius: 10px;
-  padding: 2%;
-}
-section:hover {
-  border: 1px solid #dcf3d9;
-  border-radius: 9px;
-  box-shadow: 0 0 4px 1px rgba(213, 235, 222, 0.925);
-}
-.container2 {
-  display: flex;
-  justify-content: space-around;
+  background-size: cover; */
+  height: 95vh;
+  /* background: rgb(243, 251, 230); */
+  background:rgb(250, 246, 222);
 }
 
-h2,
-h3 {
-  color: black;
-  text-align: center;
-  margin-bottom: 0;
+.recipe-container {
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  height:100%;
+  margin: 0 40px;
 }
 
-h1 {
-  color: rgb(11, 24, 13);
-  text-align: center;
-  padding-top: 30px;
-  padding-bottom: 50px;
+.recipe-title{
+  font-size:25px;
 }
 
-body {
-  font: Arial, sans-serif;
+.recipe-title-meta{
+  font-size: 20px;
+  color: #585757;
+    padding-top:15px;
 }
 
-.recipes {
-  margin: 0 auto;
+.view-more{
+  font-size: 20px;
+  padding-top: 20px;
+  color: #1c1a1a;
 }
-
-section {
-  background-color: #ebf2ef;
-  min-width: 45%;
-  border-radius: 10px;
-  border: dotted 2px;
+.view-more:hover{
+   text-decoration:none;
 }
-
-.food-img {
-  text-align: center;
-  padding: 5%;
+.food-img img {
+  width: 450px;
+  height: 350px;
+  background-color: white;
+  margin: 0;
 }
-
-img {
-  border-radius: 50px;
-  max-width: 300px;
-  max-height: 250px;
-}
-
-.is-current {
-  display: flex;
-  border: 2px solid #333333;
-  max-width: 60%;
-  justify-content: center;
-  margin: 0 auto;
-  margin-top: 15px;
-  font-size: 0.9rem;
-  border-radius: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.3ch;
-  background: #ffffff;
-  margin-top: 30px;
-}
-
-.is-current:hover {
-  padding-left: 0.5rem;
-  border-left: 0.5rem solid #11a56a;
-}
-
-.current-mealplan,
-.no-current-mealplan {
-  text-align: center;
-  font-size: 1.5em;
-  margin: 0px;
-}
-
-p.date-range {
-  text-align: center;
-}
-
-.add-more {
-  text-align: center;
-  max-width: 100%;
-  font-size: 0.8em;
-  margin: 30;
-  margin-top: 20px;
-  margin-bottom: 20px;
-} */
 
 a {
   text-decoration: none;
+  color:black;
 }
 
-a:hover {
-  text-decoration: underline;
+i {
+  font-size:20x;   
 }
+
+h3.recipe-name{
+  text-align:center;
+  font-size:23px;
+  color: #5a5858;
+}
+/* a:hover {
+  text-decoration: underline;
+} */
 </style>

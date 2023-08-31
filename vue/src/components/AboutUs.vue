@@ -212,7 +212,7 @@ export default {
 }
 
 .first-container {
-  padding: 150px 200px 0px 180px;
+  padding: 50px 280px 0px 180px;
 }
 
 .screen1 .logo-name {
@@ -224,7 +224,7 @@ export default {
 .screen1 .about-one {
   font-size: 1.3em;
   text-align: center;
-  padding: 80px 120px 50px 45px;
+  padding: 20px 120px 50px 45px;
 }
 
 
@@ -375,7 +375,7 @@ i {
 
 @media only screen and (max-width: 990px) {
   .first-container {
-    padding: 250px 200px 0px 120px;
+    padding: 100px 100px 0px 60px;
   }
 
   .screen1 .logo-name {
@@ -404,7 +404,7 @@ p.specialPara {
     width: 100%;
   }
   .first-container {
-    padding: 250px 80px 0px 50px;
+    padding: 100px 80px 0px 50px;
   }
 
   .screen1 .logo-name {
