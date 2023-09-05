@@ -30,16 +30,6 @@
             v-for="mealplan in currentMealPlans"
             v-bind:key="mealplan[0].meal_plan_id"
           >
-            <div class="planTitle">
-              <h2 class="plan-name">{{ mealplan[0].plan_name }}</h2>
-              <!-- <h3> <router-link v-bind:to="{name: 'mealplandetails', params: {mealPlanId: mealplan[0].meal_plan_id}}" >View Details</router-link> </h3> -->
-              <div>
-                {{ mealplan[0].for_date }} <span>to</span>
-
-                {{ mealplan[mealplan.length - 1].for_date }}
-              </div>
-              <div>View Details</div>
-            </div>
             <div class="buttons">
               <!-- <button @click.prevent="showDetailTable(mealplan[0].meal_plan_id)"> View Details</button> -->
 
@@ -55,12 +45,20 @@
                 <i class="bx bxs-trash"> </i>
               </div>
             </div>
-          </div>
+            <div class="planTitle">
+              <h2 class="plan-name">{{ mealplan[0].plan_name }}</h2>
+              <div>
+                {{ mealplan[0].for_date }} <span>to</span>
 
-          <meal-plan-details
-            v-if="showMealPlan"
-            v-bind:meal-plan="mealplan"
-          ></meal-plan-details>
+                {{ mealplan[mealplan.length - 1].for_date }}
+              </div>
+              <div @click="viewDetails(mealplan[0].meal_plan_id)">View Details</div>
+            </div>
+            <meal-plan-details
+              v-if="selectedMealPlanId === mealplan[0].meal_plan_id"
+              v-bind:meal-plan="mealplan"
+            ></meal-plan-details>
+          </div>
         </div>
       </div>
 
@@ -72,17 +70,6 @@
             v-for="mealplan in futureMealPlans"
             v-bind:key="mealplan[0].meal_plan_id"
           >
-            <div class="planTitle">
-              <h2 class="plan-name">{{ mealplan[0].plan_name }}</h2>
-              <!-- <h3> <router-link v-bind:to="{name: 'mealplandetails', params: {mealPlanId: mealplan[0].meal_plan_id}}" >View Details</router-link> </h3> -->
-              <div>
-                {{ mealplan[0].for_date }}
-                <span>to</span>
-
-                {{ mealplan[mealplan.length - 1].for_date }}
-              </div>
-              <div>View Details</div>
-            </div>
             <div class="buttons">
               <!-- <button @click.prevent="showDetailTable(mealplan[0].meal_plan_id)"> View Details</button> -->
 
@@ -98,12 +85,22 @@
                 <i class="bx bxs-trash"> </i>
               </div>
             </div>
-          </div>
+            <div class="planTitle">
+              <h2 class="plan-name">{{ mealplan[0].plan_name }}</h2>
+              <!-- <h3> <router-link v-bind:to="{name: 'mealplandetails', params: {mealPlanId: mealplan[0].meal_plan_id}}" >View Details</router-link> </h3> -->
+              <div>
+                {{ mealplan[0].for_date }}
+                <span>to</span>
 
-          <meal-plan-details
-            v-if="showMealPlan"
-            v-bind:meal-plan="mealplan"
-          ></meal-plan-details>
+                {{ mealplan[mealplan.length - 1].for_date }}
+              </div>
+              <div @click="viewDetails(mealplan[0].meal_plan_id)"> View Details</div>
+            </div>
+           <meal-plan-details
+              v-if="selectedMealPlanId === mealplan[0].meal_plan_id"
+              v-bind:meal-plan="mealplan"
+            ></meal-plan-details>
+          </div>
         </div>
       </div>
 
@@ -115,17 +112,6 @@
             v-for="mealplan in previousMealPlans"
             v-bind:key="mealplan[0].meal_plan_id"
           >
-            <div class="planTitle">
-              <h2 class="plan-name">{{ mealplan[0].plan_name }}</h2>
-              <!-- <h3> <router-link v-bind:to="{name: 'mealplandetails', params: {mealPlanId: mealplan[0].meal_plan_id}}" >View Details</router-link> </h3> -->
-              <div>
-                {{ mealplan[0].for_date }}
-                <span>to</span>
-
-                {{ mealplan[mealplan.length - 1].for_date }}
-              </div>
-              <div>View Details</div>
-            </div>
             <div class="buttons">
               <!-- <button @click.prevent="showDetailTable(mealplan[0].meal_plan_id)"> View Details</button> -->
               <router-link
@@ -140,12 +126,22 @@
                 <i class="bx bxs-trash"> </i>
               </div>
             </div>
-          </div>
+            <div class="planTitle">
+              <h2 class="plan-name">{{ mealplan[0].plan_name }}</h2>
+              <!-- <h3> <router-link v-bind:to="{name: 'mealplandetails', params: {mealPlanId: mealplan[0].meal_plan_id}}" >View Details</router-link> </h3> -->
+              <div>
+                {{ mealplan[0].for_date }}
+                <span>to</span>
 
-          <meal-plan-details
-            v-if="showMealPlan"
-            v-bind:meal-plan="mealplan"
-          ></meal-plan-details>
+                {{ mealplan[mealplan.length - 1].for_date }}
+              </div>
+              <div @click="viewDetails(mealplan[0].meal_plan_id)">View Details</div>
+            </div>
+            <meal-plan-details
+              v-if="selectedMealPlanId === mealplan[0].meal_plan_id"
+              v-bind:meal-plan="mealplan"
+            ></meal-plan-details>
+          </div>
         </div>
       </div>
     </section>
@@ -176,11 +172,11 @@ export default {
   data() {
     return {
       showMealPlan: false,
+      selectedMealPlanId: 0,
       mealPlans: [],
       currentMealPlans: [],
       previousMealPlans: [],
       futureMealPlans: [],
-      viewDetails: {},
       test: false,
     };
   },
@@ -194,18 +190,15 @@ export default {
     });
   },
   computed: {
-    viewDetailSection() {
-      return this.viewDetails;
-    },
     viewMealPlans() {
       return this.mealPlans;
     },
   },
 
   methods: {
-    showDetailTable(mealPlanId) {
-      this.viewDetails[mealPlanId] = !this.viewDetails[mealPlanId];
-      console.log(this.viewDetails[mealPlanId]);
+    viewDetails(mealPlanId){
+     this.selectedMealPlanId = this.selectedMealPlanId === mealPlanId ? 0 : mealPlanId;
+    
     },
     getRecipeName(currentRecipeId) {
       let recipeObj = this.$store.state.recipes.find(
@@ -330,14 +323,27 @@ h2.plan-time {
   text-align: center;
   font-weight: 300;
   text-shadow: 1px 1px 0px rgba(217, 190, 131, 0.2);
+  padding: 15px;
 }
 
 .current,
 .future,
 .previous {
-  /* padding: 15px 0 50px 0; */
+  min-height: 60vh;
 }
 
+.current {
+  background: #f4f0ec;
+  /* border-top: 1px solid rgb(179, 178, 177); */
+}
+.future {
+  background: #f8efdb;
+  /* border-top: 1px solid rgb(179, 178, 177); */
+}
+.previous {
+  background: #f7f7ed;
+  /* border-top: 1px solid rgb(179, 178, 177); */
+}
 .current .plans {
   /* background: #f5f5f5;
   background: #f4f0ec; */
@@ -350,12 +356,10 @@ h2.plan-time {
 }
 
 .previous .plans {
-  /* background: #ebe7e2; */
+  background: #f7f7ed;
   /* background: #ffffe0; */
   border-top: 1px solid rgb(179, 178, 177);
 }
-
-
 
 h2.plan-name {
   font-weight: 300;
@@ -373,11 +377,9 @@ section.filters {
 section.all-plans {
   /* background-color: #f2f3e2; */
   padding-top: 15px;
-  padding-bottom: 80px;
+
   font-family: "Poppins", "Raleway", "Dosis", sans-serif;
   font-weight: 200;
-
-
 }
 
 .filter-btn,
@@ -440,65 +442,50 @@ p {
   -o-background-size: cover;
   background-size: cover;
   padding-bottom: 160px;
-  height: 150px;
+  height: 200px;
 }
 
 .plans {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
-  padding: 50px;
-  /* margin: 0 50px; */
+  padding: 100px;
 }
 
 .plan {
   /* box-sizing: border-box;  */
-  width: 35%;
+  width: 60%;
   color: #422800;
-  display: flex;
-  justify-content: center;
+  /* display: flex;
+  justify-content: center; */
   text-align: center;
   border: 1px solid rgb(202, 201, 198);
   /* background-color: rgb(248, 246, 242);
     background-color: #fbfbf5;*/
   border-radius: 20px;
   margin-bottom: 20px;
-  padding: 30px;
+  padding: 10px 30px 30px 30px;
 }
 
 .tdata {
   padding: 10px;
 }
 
-/* .buttons {
-  display: flex;
-  justify-content: center;
-} */
-
-/* .show-details,
-.add-meal {
-  margin-right: 15px;
-  background: #fff;
-  backface-visibility: hidden;
-  border-radius: 0.375rem;
-  border-width: 0.125rem;
-  color: #212121;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 1.2;
-  padding: 0.5rem;
-  position: relative;
-  text-align: left;
-  margin-bottom: 15px;
-  display: block;
-} */
-
 .move-to-top {
   border-radius: 50%;
   position: fixed;
   right: 10%;
   bottom: 25%;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+  align-items: flex-end;
+}
+
+.buttons i {
+  font-size: 20px;
 }
 </style>

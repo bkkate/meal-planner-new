@@ -1,6 +1,6 @@
 <template>
 <div class="background">
-  <div id="register" class="text-center">
+
     <form class="form-register" @submit.prevent="register">
       <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
@@ -33,12 +33,12 @@
         v-model="user.confirmPassword"
         required
       />
-      <router-link :to="{ name: 'login' }">Have an account?</router-link>
+    
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Account
-      </button>
+      </button>  <router-link :to="{ name: 'login' }">Have an account?</router-link>
     </form>
-  </div>
+
   </div>
 </template>
 
@@ -94,27 +94,55 @@ export default {
 </script>
 
 <style scoped>
-#register {
-  margin-top: 100px;
-  margin-bottom: 100px;
+
+.background {
+  font-family: "Dosis", monospace, sans-serif;
+ background-color:#eff1e8;
+ height:90vh;
+ display:flex;
+ align-items:center;
+ text-align:center;
+}
+
+h1{
+  padding:10px;
 }
 
 .form-register {
   display: grid;
   gap: 10px;
-  max-width: 300px;
+  width:60%;
   margin: 0 auto;
   padding: 20px;
   border-radius: 5px;
 font-family: 'Dosis', monospace, sans-serif;
-  background-color: rgb(236, 245, 226);
-  border: solid 4px;
-  border-radius: 25px;
+
 }
 
-router-link {
-  padding-left: 15px;
+input {
+  font-family: "Dosis", monospace, sans-serif;
+  display: block;
+    width: 80%;
+    margin: 0 auto;
+    outline: none;
+    background-color: #9191911f;
+    border: none;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 17px;
+    letter-spacing: 0.8px;
+    font-size: 15px;
+    backdrop-filter: blur(15px);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    text-align: center;  
+    margin-bottom: 5px;
+  border-radius: 5px;
+  padding: 15px 10px;
 }
+
 
 .alert {
   margin-bottom: 20px;
@@ -124,15 +152,6 @@ label {
   display: none; 
 }
 
-input[type="text"],
-input[type="password"] {
-  margin-bottom: 10px;
-  border-radius: 5px;
-  padding: 10px;
-  background-color: #CCCCFF;
-  color: #333;
-  font-family: 'Dosis', monospace, sans-serif;
-}
 
 router-link {
   display: block;
@@ -140,7 +159,6 @@ router-link {
 }
 
 button[type="submit"] {
-  margin-top: 10px;
   background-color: #89c36f; 
   color: #fff;
   padding: 15px;
@@ -149,25 +167,16 @@ button[type="submit"] {
   cursor: pointer;
   transition: background-color 0.3s ease;
   font-family: 'Dosis', monospace, sans-serif;
+    width:80%;
+    margin: 0 auto;
+    font-size: 17px;
 }
 
 button[type="submit"]:hover {
   background-color: #2e7d32; 
+  width:80%;
 }
 
-.background {
-  font-family: "Dosis", monospace, sans-serif;
-  background: url(../assets/cropped-orange.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  padding-bottom: 50px;
-  opacity: 0.9;
-  font-size: 1.1em;
-  padding-left: 5%;
-
-}
 
 
 </style>

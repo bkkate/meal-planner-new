@@ -1,22 +1,5 @@
 <template>
  <div>
-     <!-- <table>
-        <thead>
-          <th>
-            <tr >
-              <div class="container">
-                <td> <img src="../assets/calendar-planner.jpg" class="calendarImg" height=100 width=100></td>
-                  <td>Monday</td>
-                <td> Tuesday </td>
-                <td>Wednesday</td>
-                <td>Thursday</td>
-                <td>Friday</td>
-                <td>Saturday</td>
-                <td>Sunday </td>
-              </div>
-            </tr>
-          </th>
-        </thead> -->
 <div class="tableStyle">
          <table>
         <thead>
@@ -82,29 +65,26 @@ export default {
 
 
 .tableStyle {
+  font-family: "Poppins", "Raleway", "Dosis", sans-serif;
   display: flex;
   justify-content: center;
-  padding: 2em;
+   padding:20px 0;
   border-bottom: 1px dashed black;
-  max-width: 50%;
   margin: 0 auto;
-  
-  font-weight: bold;
 
 }
 tr>th{
-  font-size: 22px;
+  font-size: 20px;
 }
 .tdata {
   padding: 10px;
+  width:30%;
 }
 
 a {
   text-decoration: none;
-  color:rgb(71, 149, 194);
-  font-weight: bold;
-  font-family:cursive
-  
+  color:rgb(91, 83, 5);
+  font-weight: bold;  
 }
 
 /* .addBtn,

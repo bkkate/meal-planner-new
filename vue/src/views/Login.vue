@@ -1,14 +1,8 @@
 <template>
-  <div id="login" class="text-center">
-    <div class="login1">
-      <main-login class="login2" />
-      <!-- <about-us class="login2"/> -->
-    </div>
-
-    <div></div>
+  <div class="login-page">
     <div class="form">
       <form class="form-signin" @submit.prevent="login">
-        <h2 class="h3 mb-3 font-weight-normal">Please Sign In</h2>
+        <h2> SIGN IN </h2>
         <div class="alert alert-danger" role="alert" v-if="invalidCredentials">
           Invalid username and password!
         </div>
@@ -38,24 +32,22 @@
           v-model="user.password"
           required
         /><br />
+
+        <div><button class="btn" type="submit">Submit</button></div>
         <router-link :to="{ name: 'register' }" class="needacc"
           >Need an account?</router-link
         >
-        <button class="btn" type="submit">Sign in</button>
       </form>
     </div>
   </div>
 </template>
 
 <script>
-// import AboutUs from '../components/AboutUs.vue';
-import MainLogin from "../components/MainLogin.vue";
 import authService from "../services/AuthService";
 // import MainLogin from "../components/MainLogin.vue"
 
 export default {
   name: "login",
-  components: { MainLogin },
   data() {
     return {
       user: {
@@ -89,74 +81,82 @@ export default {
 };
 </script>
 <style scoped>
-#login {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  background-color: rgb(234, 250, 176);
-  font-family: "Dosis", monospace, sans-serif;
-  padding: 30px;
-  background: url(../assets/2.png) no-repeat center center fixed;
-  background-position: bottom;
+.login-page {
+  background: url("../assets/white-drawings.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 90vh;
+  display:flex;
+  align-items:center;
+   font-family: "Dosis", monospace, sans-serif;
 }
 
-.login1 {
-  width: 70%;
-}
 .form {
-  width: 30%;
-  align-content: center;
+  width:50%;
+  height:60%;
   text-align: center;
-  background-color: white;
-  padding-top: 50px;
-  border: solid 4px;
+  background-color: rgb(245, 245, 243);
   border-radius: 25px;
-  align-items: center;
-  justify-content: center;
+  margin: 0 auto;
 }
 .form-signin {
-  max-width: 330px;
+  max-width: 300px;
   padding: 15px;
   margin: 0 auto;
 }
 
 .form-signin .form-control {
-  /* position: relative; */
   box-sizing: border-box;
   height: auto;
   padding: 10px;
   font-size: 16px;
   align-content: center;
   text-align: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0px 1px rgba(0, 0, 0, 0.5);
 }
 .form-signin input:hover {
   color: black;
-  background-color: #fcf8ee;
+  background-color: #fcfaf4;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+h2{
+  padding:25px;
+}
 .btn {
   padding: 10px;
-  margin: 20px;
-  width: 25%;
-  font-family: "Dosis", monospace, sans-serif;
+  width: 40%;
+  font-size: 16px;
+  margin:0 0 15px 0;
 }
 .sr-only {
   padding: 10px;
   font-weight: bold;
 }
 input {
-  padding: 10px;
   font-family: "Dosis", monospace, sans-serif;
+  display: block;
+    width: 100%;
+    margin: 0.8rem 0;
+    outline: none;
+    background-color: #9191911f;
+    border: none;
+    border-radius: 5px;
+    font-weight: 500;
+    letter-spacing: 0.8px;
+    font-size: 15px;
+    backdrop-filter: blur(15px);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
 }
-.form-control {
-  margin: 2%;
-}
-.logo {
-  max-width: 130px;
-  border-radius: 50%;
-  box-shadow: #fc0 1px 0 10px;
+
+
+
+a{
+  text-decoration:none;
+  font-size: 18px;
 }
 </style>

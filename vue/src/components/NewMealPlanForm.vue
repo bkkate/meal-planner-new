@@ -1,8 +1,7 @@
 <template>
 <div class="background">
-  <div class="wrapper">
+
     <div class="weekly-plan-name">
-      <!-- <label for="meal-plan-name"> <h2>Meal Plan Name:</h2> </label> -->
       <div class="title-add-section" v-if="!planNameAdded">
         <input
           placeholder="Meal Plan Name"
@@ -20,14 +19,13 @@
         <!-- <button class="modifyBtn" @click.prevent="modifyName">Edit Name</button> -->
       </div>
     </div>
-
     <form class="mealForm">
       <div class="options">
- <div class="dateOptions">
+      <div class="dateOptions">
           <label for="date">Select Date: </label>
           <input
             type="date"
-            id="date"
+           class="form-control"
             name="date"
             v-model="mealPlan.for_date"
           />
@@ -35,7 +33,7 @@
 
         <div class="mealTypeOptions">
           <label for="mealType">Select Meal: </label>
-          <select name="mealType" id="mealType" v-model="mealPlan.meal_type">
+          <select name="mealType" class="form-control" v-model="mealPlan.meal_type">
             <option value=1> Breakfast </option>
             <option value=2> Lunch </option>
             <option value=3> Dinner </option>
@@ -46,7 +44,7 @@
 
         <div class="recipesOptions">
           <label for="recipe">Select Recipe: </label>
-          <select name="recipe" id="recipe" v-model="currentSelectedRecipe">
+          <select name="recipe" class="form-control" v-model="currentSelectedRecipe">
             <option
               v-for="recipe in this.$store.state.recipes"
               v-bind:key="recipe.recipe_id"
@@ -56,11 +54,11 @@
             </option>
           </select>
         </div>
-
-      </div>
-       <div class="btn">
+ <div class="btn">
            <button class="addToPlanBtn" @click.prevent="addMealCombo">Add Meal </button>
        </div>
+      </div>
+      
    
     </form>
 
@@ -68,14 +66,6 @@
       <thead>
           <tr>
             <div class="planContainer">
-              <th class="tdata">
-                <img
-                  src="../assets/calendar-planner.jpg"
-                  class="calendarImg"
-                  height="100"
-                  width="100"
-                />
-              </th>
               <th class="tdata">Date</th>
               <th class="tdata">Meal</th>
               <th class="tdata">Recipe</th>
@@ -86,7 +76,6 @@
       <tbody>
         <tr v-for="plan in listOfPlans" v-bind:key="plan.for_date">
           <div class="planContainer">
-          <td class="tdata placehold" style="color:#ecf2f0">     placeholder </td>
           <td class="tdata">{{plan.for_date}}</td>
           <td class="tdata">{{convertMealTypeToWord(plan.meal_type)}}</td>
           <td class="tdata">{{getRecipeName(plan.recipe_id)}}</td>
@@ -95,10 +84,13 @@
 
       </tbody>
     </table>
+
+
+    
     <div class="btn">
-     <button class="addToPlanBtn" @click.prevent="addMealToDB"> Add To Meal Plan </button>
+     <button class="addToMealPlanBtn" @click.prevent="addMealToDB"> Add To Meal Plan </button>
      </div>
-  </div>
+
 </div>
 </template>
 
@@ -238,42 +230,98 @@ export default {
   
 }
 
-.wrapper {
-  /* margin-bottom: 15%;  */
-  background-color: rgb(255, 240, 221);
-  padding-bottom: 1ch;
-  width: 50%;
-  border-radius: 25px;
-  margin-left: 25vw;
-  
-  border: solid 4px ;
-  
-}
-.placehold{
-  color: black;
-}
 .background{
   text-align: center;
-  font-family: 'Dosis', monospace, sans-serif;
-  background: url(../assets/veggies.jpg) no-repeat center center fixed;
+  font-family: "Raleway", 'Dosis', monospace, sans-serif;
+  background: url(../assets/dumplings-right.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
   padding-bottom: 50px;
   padding-top: 50px;
+  height:100vh;
+}
+
+.weekly-plan-name{
+  margin: 5px 0px 25px;
+}
+input.meal-plan-name {
+  width: 180px;
+  height: 50px;
+  border: 2px solid var(--grey-light-ui-200, #eeedf2);
+  font-family: "Raleway", "Dosis", sans-serif;
+  font-size: 15px;
+  border-radius: 360px;
+  margin: 0 40px;
+  padding-left: 30px;
+}
+
+.options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color:rgb(241, 249, 253); */
+  margin: 0 auto;
+}
+.form-control {
+  border: 1px solid #ccc;
+  display: block;
+  height: 40px;
+  margin: 0 5px 25px;
+  border-radius: 20px;
+  background: #f8f8f8;
+  max-width: 200px;
+  text-align: center;
 }
 .addBtn,
 .modifyBtn, 
-.addToPlanBtn {
-  margin: 0 10px;
-  background-color: #a6f5ac;
-  /* color: white; */
-  font-weight: bold;
-  font-family: system-ui, sans-serif;
-  border-radius: 3px;
-  border: 1px solid #adc4d4;
-  padding: 0.3em;
+.addToPlanBtn,
+.addToMealPlanBtn {
+    /* cursor: pointer;
+  font: "Raleway", "Dosis", sans-serif;
+  border: 1px solid rgba(8, 9, 9, 0.15);
+  appearance: none;
+  background: #ededea;
+  border: 1px solid rgba(8, 9, 9, 0.15);
+  border-radius: 300px;
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0,
+    rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+  color: #000000;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 34px;
+  padding: 6px 15px; */
+
+   cursor: pointer;
+  font: "Raleway", "Dosis", sans-serif;
+  appearance: none;
+  background: #5e5e5b;
+  border: 1px solid rgba(8, 9, 9, 0.15);
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0,
+    rgba(217, 215, 215, 0.25) 0 1px 0 inset;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 30px;
+  padding: 6px 15px;
+  margin-top: 15px;
+}
+
+.addBtn{
+  background:transparent;
+color:black;
+}
+.addToPlanBtn{
+margin:0;
+width:100px;
+margin-bottom:10px;
+background:transparent;
+color:black;
 }
 
 .addBtn:hover,
@@ -283,34 +331,10 @@ export default {
   cursor: pointer;
 }
 
-.addToPlanBtn {
-  position: relative;
-  background-color: #ffffff;
-  border: 2px solid #422800;
-  border-radius: 30px;
-  box-shadow: #422800 4px 4px 0 0;
-  color: #422800;
-  cursor: pointer;
-  display: inline-block;
-  font-weight: 600;
-  font-size: 15px;
-  padding: 0 3px;
-  line-height: 30px;
-  text-align: center;
-  text-decoration: none;
-  font-family: 'Dosis', monospace, sans-serif;
+.addToMealPlanBtn {
+margin-top: 60px;
+}
 
-  /* left: 50%; */
-  /* position: absolute; */
-  /* margin-left: 43%; */
-}
-.weekly-plan-name {
-  text-align: center;
-  padding: 30px;
-  background-color: rgba(255, 239, 14, 0.411);
-  border-radius: 25px 25px 0 0;
-  border-bottom: solid 2px;
-}
 
 .options {
   display: flex;
@@ -320,24 +344,22 @@ export default {
   max-width: 50%;
 }
 
-.calendarImg {
-  border-radius: 25px;
+table{
+  margin: 0px 90px;
+  width:50%;
 }
 
-table {
-  background-color: #ecf2f0;
-  margin: 50px auto;
-  border-radius: 25px;
+thead tr div.planContainer{
+  border-bottom: 1px solid black;
 }
-
-
 
 .tdata{
   padding: 1.2em;
-  margin: .5em;
+  width:50%;
 }
-.tdata:nth-child(even){
-  background-color: #dfe9e6;
+
+th.tdata{
+  font-size:1.2em;
 }
 
 .planContainer {

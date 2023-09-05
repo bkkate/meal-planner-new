@@ -197,7 +197,7 @@ export default {
 
     searchResults() {
       if (this.searchCategory ==="name") {
-          this.currentRecipesDisplay = this.recipes.filter((recipe) => recipe.recipe_name.includes(this.searchTerm))
+          this.currentRecipesDisplay = this.recipes.filter((recipe) => recipe.recipe_name.toLowerCase().includes(this.searchTerm.toLowerCase()))
       }
       if (this.searchCategory === "tags") {
         this.currentRecipesDisplay = this.recipes.filter((recipe) => {
@@ -257,7 +257,7 @@ section.top-title {
   background: url("../assets/light-orange-right.jpg") no-repeat center center;
   /* background: url('../assets/blue-right.jpg') no-repeat center center; */
   background-size: cover;
-  height: 320px;
+  height: 350px;
   text-align: left;
   margin-bottom: 20px;
 }

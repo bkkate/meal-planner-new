@@ -303,6 +303,7 @@ i {
 h3.recipe-name{
   text-align:center;
   font-size:23px;
+  font-family: "Dosis", sans-serif;
   color: #5a5858;
 }
 /* a:hover {
